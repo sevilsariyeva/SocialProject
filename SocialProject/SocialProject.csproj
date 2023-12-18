@@ -7,7 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\fonts\" />
+    <None Include="wwwroot\css\responsive.css.map" />
+    <None Include="wwwroot\css\responsive.scss" />
+    <None Include="wwwroot\css\style.css.map" />
+    <None Include="wwwroot\css\style.scss" />
+    <None Include="wwwroot\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\js\custom.js" />
+    <None Include="wwwroot\js\jquery-ui.min.js" />
+    <None Include="wwwroot\js\jquery.magnific-popup.min.js" />
+    <None Include="wwwroot\js\jquery.min.js" />
+    <None Include="wwwroot\js\main.js" />
+    <None Include="wwwroot\js\metismenu.min.js" />
+    <None Include="wwwroot\js\other.js" />
+    <None Include="wwwroot\js\owl.carousel.min.js" />
+    <None Include="wwwroot\js\selectize.min.js" />
+    <None Include="wwwroot\js\simplebar.min.js" />
+    <None Include="wwwroot\js\wow.min.js" />
   </ItemGroup>
 
 </Project>
