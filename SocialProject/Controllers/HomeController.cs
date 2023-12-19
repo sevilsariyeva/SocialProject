@@ -17,7 +17,11 @@ namespace SocialProject.Controllers
         {
             return View();
         }
-
+        public IActionResult MyProfile()
+        {
+            return View("MyProfile");
+        }
+       
         public IActionResult Privacy()
         {
             return View();
