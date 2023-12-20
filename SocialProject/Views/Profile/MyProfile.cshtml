@@ -15,7 +15,7 @@
 
         <div class="main-navbar">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a href="index.html" class="navbar-brand d-flex align-items-center">
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand d-flex align-items-center">
                     <img src="~/images/logo.png" alt="image">
                 </a>
 
@@ -35,7 +35,7 @@
 
                     <div class="others-options d-flex align-items-center">
                         <div class="option-item">
-                            <a href="index.html" class="home-btn"><i class="flaticon-home"></i></a>
+                            <a href="@Url.Action("Index", "Home")" class="home-btn"><i class="flaticon-home"></i></a>
                         </div>
                         <div class="option-item">
                             <div class="dropdown friend-requests-nav-item">
@@ -190,7 +190,7 @@
                                             </div>
                                         </div>
                                         <div class="view-all-requests-btn">
-                                            <a href="friends.html" class="default-btn">View All Requests</a>
+                                            <a href="@Url.Action("Friends", "Profile")" class="default-btn">View All Requests</a>
                                         </div>
                                     </div>
                                 </div>
@@ -290,7 +290,7 @@
                                             </div>
                                         </div>
                                         <div class="view-all-messages-btn">
-                                            <a href="messages.html" class="default-btn">View All Messages</a>
+                                            <a href="@Url.Action("Message", "Message")" class="default-btn">View All Messages</a>
                                         </div>
                                     </div>
                                 </div>
@@ -372,7 +372,7 @@
                                             </div>
                                         </div>
                                         <div class="view-all-notifications-btn">
-                                            <a href="notifications.html" class="default-btn">View All Notifications</a>
+                                            <a href="@Url.Action("Notifications", "Profile")" class="default-btn">View All Notifications</a>
                                         </div>
                                     </div>
                                 </div>
@@ -416,11 +416,11 @@
                                         <a href="mailto:matthew507@gmail.com">matthew507@gmail.com</a>
                                     </div>
                                     <ul class="profile-body">
-                                        <li><i class="flaticon-user"></i> <a href="@Url.Action("MyProfile", "Account")">My Profile</a></li>
-                                        <li><i class="flaticon-settings"></i> <a href="@Url.Action("Setting", "Account")">Setting</a></li>
-                                        <li><i class="flaticon-privacy"></i> <a href="@Url.Action("Privacy", "Account")">Privacy</a></li>
-                                        <li><i class="flaticon-information"></i> <a href="help-and-support.html">Help & Support</a></li>
-                                        <li><i class="flaticon-logout"></i> <a href="index.html">Logout</a></li>
+                                        <li><i class="flaticon-user"></i> <a href="@Url.Action("MyProfile", "Profile")">My Profile</a></li>
+                                        <li><i class="flaticon-settings"></i> <a href="@Url.Action("Setting", "Profile")">Setting</a></li>
+                                        <li><i class="flaticon-privacy"></i> <a href="@Url.Action("Privacy", "Profile")">Privacy</a></li>
+                                        <li><i class="flaticon-information"></i> <a href="@Url.Action("HelpAndSupport", "Profile")">Help & Support</a></li>
+                                        <li><i class="flaticon-logout"></i> <a href="@Url.Action("Index", "Home")">Logout</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -444,7 +444,7 @@
                     <div class="option-inner">
                         <div class="others-options d-flex align-items-center">
                             <div class="option-item">
-                                <a href="index.html" class="home-btn"><i class="flaticon-home"></i></a>
+                                <a href="@Url.Action("Index", "Home")" class="home-btn"><i class="flaticon-home"></i></a>
                             </div>
                             <div class="option-item">
                                 <div class="dropdown friend-requests-nav-item">
@@ -531,7 +531,7 @@
                                                 </div>
                                             </div>
                                             <div class="view-all-requests-btn">
-                                                <a href="@Url.Action("Friends", "Account")" class="default-btn">View All Requests</a>
+                                                <a href="@Url.Action("Friends", "Profile")" class="default-btn">View All Requests</a>
                                             </div>
                                         </div>
                                     </div>
@@ -595,7 +595,7 @@
                                                 </div>
                                             </div>
                                             <div class="view-all-messages-btn">
-                                                <a href="messages.html" class="default-btn">View All Messages</a>
+                                                <a href="@Url.Action("Message", "Message")" class="default-btn">View All Messages</a>
                                             </div>
                                         </div>
                                     </div>
@@ -647,7 +647,7 @@
                                                 </div>
                                             </div>
                                             <div class="view-all-notifications-btn">
-                                                <a href="notifications.html" class="default-btn">View All Notifications</a>
+                                                <a href="@Url.Action("Notifications", "Profile")" class="default-btn">View All Notifications</a>
                                             </div>
                                         </div>
                                     </div>
@@ -691,11 +691,11 @@
                                             <a href="mailto:matthew507@gmail.com">matthew507@gmail.com</a>
                                         </div>
                                         <ul class="profile-body">
-                                            <li><i class="flaticon-user"></i> <a href="my-profile.html">My Profile</a></li>
-                                            <li><i class="flaticon-settings"></i> <a href="setting.html">Setting</a></li>
-                                            <li><i class="flaticon-privacy"></i> <a href="privacy.html">Privacy</a></li>
-                                            <li><i class="flaticon-information"></i> <a href="help-and-support.html">Help & Support</a></li>
-                                            <li><i class="flaticon-logout"></i> <a href="index.html">Logout</a></li>
+                                            <li><i class="flaticon-user"></i> <a href="@Url.Action("MyProfile", "Profile")">My Profile</a></li>
+                                            <li><i class="flaticon-settings"></i> <a href="@Url.Action("Setting", "Profile")">Setting</a></li>
+                                            <li><i class="flaticon-privacy"></i> <a href="@Url.Action("Privacy", "Profile")">Privacy</a></li>
+                                            <li><i class="flaticon-information"></i> <a href="@Url.Action("HelpAndSupport", "Profile")">Help & Support</a></li>
+                                            <li><i class="flaticon-logout"></i> <a href="@Url.Action("Index", "Home")">Logout</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -726,33 +726,27 @@
         <div class="sidemenu-body">
             <ul class="sidemenu-nav metisMenu h-100" id="sidemenu-nav" data-simplebar>
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link">
+                    <a href="@Url.Action("Index", "Home")" class="nav-link">
                         <span class="icon"><i class="flaticon-newspaper"></i></span>
                         <span class="menu-title">News Feed</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="notifications.html" class="nav-link">
+                    <a href="@Url.Action("Notifications", "Profile")" class="nav-link">
                         <span class="icon"><i class="flaticon-bell"></i></span>
                         <span class="menu-title">Notifications</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="messages.html" class="nav-link">
+                    <a href="@Url.Action("Message", "Message")" class="nav-link">
                         <span class="icon"><i class="flaticon-comment-1"></i></span>
                         <span class="menu-title">Messages</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="friends.html" class="nav-link">
+                    <a href=@Url.Action("Friends", "Profile")" class="nav-link">
                         <span class="icon"><i class="flaticon-friends"></i></span>
                         <span class="menu-title">Friends</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="groups.html" class="nav-link">
-                        <span class="icon"><i class="flaticon-team"></i></span>
-                        <span class="menu-title">Groups</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -762,23 +756,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="events.html" class="nav-link">
-                        <span class="icon"><i class="flaticon-calendar"></i></span>
-                        <span class="menu-title">Events</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="live-chat.html" class="nav-link">
+                    <a href="@Url.Action("LiveChat", "Message")" class="nav-link">
                         <span class="icon"><i class="flaticon-live-chat"></i></span>
                         <span class="menu-title">Live Chat</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="birthday.html" class="nav-link">
-                        <span class="icon"><i class="flaticon-cake"></i></span>
-                        <span class="menu-title">Birthday</span>
-                    </a>
-                </li>
+               
                 <li class="nav-item">
                     <a href="video.html" class="nav-link">
                         <span class="icon"><i class="flaticon-video"></i></span>
@@ -791,20 +774,15 @@
                         <span class="menu-title">Weather</span>
                     </a>
                 </li>
+               
                 <li class="nav-item">
-                    <a href="marketplace.html" class="nav-link">
-                        <span class="icon"><i class="flaticon-online-shopping"></i></span>
-                        <span class="menu-title">Marketplace</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="login.html" class="nav-link">
+                    <a href="@Url.Action("Login", "Account")" class="nav-link">
                         <span class="icon"><i class="flaticon-user"></i></span>
                         <span class="menu-title">Login</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="register.html" class="nav-link">
+                    <a href="@Url.Action("Register", "Account")" class="nav-link">
                         <span class="icon"><i class="flaticon-information"></i></span>
                         <span class="menu-title">Register</span>
                     </a>
@@ -870,7 +848,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="friends-tab" data-bs-toggle="tab" href="@Url.Action("Friends", "Account")" role="tab" aria-controls="friends">Friends</a>
+                            <a class="nav-link" id="friends-tab" data-bs-toggle="tab" href="@Url.Action("Friends", "Profile")" role="tab" aria-controls="friends">Friends</a>
                         </li>
 
                         <li class="nav-item">
@@ -1149,10 +1127,10 @@
                             <div class="news-feed news-feed-post">
                                 <div class="post-header d-flex justify-content-between align-items-center">
                                     <div class="image">
-                                        <a href="my-profile.html"><img src="~/images/user/user-32.jpg" class="rounded-circle" alt="image"></a>
+                                        <a href="@Url.Action("MyProfile", "Profile")"><img src="~/images/user/user-32.jpg" class="rounded-circle" alt="image"></a>
                                     </div>
                                     <div class="info ms-3">
-                                        <span class="name"><a href="my-profile.html">Julie R. Morleyv</a></span>
+                                        <span class="name"><a href="@Url.Action("MyProfile", "Profile")">Julie R. Morleyv</a></span>
                                         <span class="small-text"><a href="#">10 Mins Ago</a></span>
                                     </div>
                                     <div class="dropdown">
@@ -1208,11 +1186,11 @@
                                     <div class="post-comment-list">
                                         <div class="comment-list">
                                             <div class="comment-image">
-                                                <a href="my-profile.html"><img src="~/images/user/user-14.jpg" class="rounded-circle" alt="image"></a>
+                                                <a href="@Url.Action("MyProfile", "Profile")"><img src="~/images/user/user-14.jpg" class="rounded-circle" alt="image"></a>
                                             </div>
                                             <div class="comment-info">
                                                 <h3>
-                                                    <a href="my-profile.html">David Moore</a>
+                                                    <a href="@Url.Action("MyProfile", "Profile")">David Moore</a>
                                                 </h3>
                                                 <span>5 Mins Ago</span>
                                                 <p>Donec rutrum congue leo eget malesuada nulla quis lorem ut libero malesuada feugiat donec rutrum congue leo eget malesuada donec rutrum congue leo eget malesuada. Praesent sapien massa convallis a pellentesque non nisi curabitur non nulla sit amet nisl tempus convallis lectus.</p>
@@ -1224,11 +1202,11 @@
                                         </div>
                                         <div class="comment-list">
                                             <div class="comment-image">
-                                                <a href="my-profile.html"><img src="~/images/user/user-15.jpg" class="rounded-circle" alt="image"></a>
+                                                <a href="@Url.Action("MyProfile", "Profile")"><img src="~/images/user/user-15.jpg" class="rounded-circle" alt="image"></a>
                                             </div>
                                             <div class="comment-info">
                                                 <h3>
-                                                    <a href="my-profile.html">Claire P. Toy</a>
+                                                    <a href="@Url.Action("MyProfile", "Profile")">Claire P. Toy</a>
                                                 </h3>
                                                 <span>45 Mins Ago</span>
                                                 <p>Donec rutrum congue leo eget malesuada praesent sapien massa convallis a pellentesque nec egestas non nisi curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
@@ -1240,11 +1218,11 @@
                                         </div>
                                         <div class="comment-list">
                                             <div class="comment-image">
-                                                <a href="my-profile.html"><img src="~/images/user/user-16.jpg" class="rounded-circle" alt="image"></a>
+                                                <a href="@Url.Action("MyProfile", "Profile")"><img src="~/images/user/user-16.jpg" class="rounded-circle" alt="image"></a>
                                             </div>
                                             <div class="comment-info">
                                                 <h3>
-                                                    <a href="my-profile.html">Karen Williams</a>
+                                                    <a href="@Url.Action("MyProfile", "Profile")">Karen Williams</a>
                                                 </h3>
                                                 <span>5 Mins Ago</span>
                                                 <p>Donec rutrum congue leo eget malesuada nulla quis lorem ut libero malesuada feugiat donec rutrum congue leo eget.</p>
@@ -1273,10 +1251,10 @@
                             <div class="news-feed news-feed-post">
                                 <div class="post-header d-flex justify-content-between align-items-center">
                                     <div class="image">
-                                        <a href="my-profile.html"><img src="~/images/user/user-35.jpg" class="rounded-circle" alt="image"></a>
+                                        <a href="@Url.Action("MyProfile", "Profile")"><img src="~/images/user/user-35.jpg" class="rounded-circle" alt="image"></a>
                                     </div>
                                     <div class="info ms-3">
-                                        <span class="name"><a href="my-profile.html">William Fenton</a></span>
+                                        <span class="name"><a href="@Url.Action("MyProfile", "Profile")">William Fenton</a></span>
                                         <span class="small-text"><a href="#">50 Mins Ago</a></span>
                                     </div>
                                     <div class="dropdown">
@@ -1344,10 +1322,10 @@
                             <div class="news-feed news-feed-post">
                                 <div class="post-header d-flex justify-content-between align-items-center">
                                     <div class="image">
-                                        <a href="my-profile.html"><img src="~/images/user/user-36.jpg" class="rounded-circle" alt="image"></a>
+                                        <a href="@Url.Action("MyProfile", "Profile")"><img src="~/images/user/user-36.jpg" class="rounded-circle" alt="image"></a>
                                     </div>
                                     <div class="info ms-3">
-                                        <span class="name"><a href="my-profile.html">Maria Dodson</a></span>
+                                        <span class="name"><a href="@Url.Action("MyProfile", "Profile")">Maria Dodson</a></span>
                                         <span class="small-text"><a href="#">2 Hours Ago</a></span>
                                     </div>
                                     <div class="dropdown">
@@ -1415,10 +1393,10 @@
                             <div class="news-feed news-feed-post">
                                 <div class="post-header d-flex justify-content-between align-items-center">
                                     <div class="image">
-                                        <a href="my-profile.html"><img src="~/images/user/user-5.jpg" class="rounded-circle" alt="image"></a>
+                                        <a href="@Url.Action("MyProfile", "Profile")"><img src="~/images/user/user-5.jpg" class="rounded-circle" alt="image"></a>
                                     </div>
                                     <div class="info ms-3">
-                                        <span class="name"><a href="my-profile.html">Karen Williams</a></span>
+                                        <span class="name"><a href="@Url.Action("MyProfile", "Profile")">Karen Williams</a></span>
                                         <span class="small-text"><a href="#">10 Mins Ago</a></span>
                                     </div>
                                     <div class="dropdown">
@@ -1474,11 +1452,11 @@
                                     <div class="post-comment-list">
                                         <div class="comment-list">
                                             <div class="comment-image">
-                                                <a href="my-profile.html"><img src="~/images/user/user-21.jpg" class="rounded-circle" alt="image"></a>
+                                                <a href="@Url.Action("MyProfile", "Profile")"><img src="~/images/user/user-21.jpg" class="rounded-circle" alt="image"></a>
                                             </div>
                                             <div class="comment-info">
                                                 <h3>
-                                                    <a href="my-profile.html">David Moore</a>
+                                                    <a href="@Url.Action("MyProfile", "Profile")">David Moore</a>
                                                 </h3>
                                                 <span>5 Mins Ago</span>
                                                 <p>Donec rutrum congue leo eget malesuada nulla quis lorem ut libero malesuada feugiat donec rutrum congue leo eget malesuada donec rutrum congue leo eget malesuada. Praesent sapien massa convallis a pellentesque non nisi curabitur non nulla sit amet nisl tempus convallis lectus.</p>
@@ -1490,11 +1468,11 @@
                                         </div>
                                         <div class="comment-list">
                                             <div class="comment-image">
-                                                <a href="my-profile.html"><img src="~/images/user/user-22.jpg" class="rounded-circle" alt="image"></a>
+                                                <a href="@Url.Action("MyProfile", "Profile")"><img src="~/images/user/user-22.jpg" class="rounded-circle" alt="image"></a>
                                             </div>
                                             <div class="comment-info">
                                                 <h3>
-                                                    <a href="my-profile.html">Claire P. Toy</a>
+                                                    <a href="@Url.Action("MyProfile", "Profile")">Claire P. Toy</a>
                                                 </h3>
                                                 <span>45 Mins Ago</span>
                                                 <p>Donec rutrum congue leo eget malesuada praesent sapien massa convallis a pellentesque nec egestas non nisi curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
@@ -1506,11 +1484,11 @@
                                         </div>
                                         <div class="comment-list">
                                             <div class="comment-image">
-                                                <a href="my-profile.html"><img src="~/images/user/user-24.jpg" class="rounded-circle" alt="image"></a>
+                                                <a href="@Url.Action("MyProfile", "Profile")"><img src="~/images/user/user-24.jpg" class="rounded-circle" alt="image"></a>
                                             </div>
                                             <div class="comment-info">
                                                 <h3>
-                                                    <a href="my-profile.html">Karen Williams</a>
+                                                    <a href="@Url.Action("MyProfile", "Profile")">Karen Williams</a>
                                                 </h3>
                                                 <span>5 Mins Ago</span>
                                                 <p>Donec rutrum congue leo eget malesuada nulla quis lorem ut libero malesuada feugiat donec rutrum congue leo eget.</p>
@@ -1539,10 +1517,10 @@
                             <div class="news-feed news-feed-post">
                                 <div class="post-header d-flex justify-content-between align-items-center">
                                     <div class="image">
-                                        <a href="my-profile.html"><img src="~/images/user/user-18.jpg" class="rounded-circle" alt="image"></a>
+                                        <a href="@Url.Action("MyProfile", "Profile")"><img src="~/images/user/user-18.jpg" class="rounded-circle" alt="image"></a>
                                     </div>
                                     <div class="info ms-3">
-                                        <span class="name"><a href="my-profile.html">Maria Dodson</a></span>
+                                        <span class="name"><a href="@Url.Action("MyProfile", "Profile")">Maria Dodson</a></span>
                                         <span class="small-text"><a href="#">2 Hours Ago</a></span>
                                     </div>
                                     <div class="dropdown">

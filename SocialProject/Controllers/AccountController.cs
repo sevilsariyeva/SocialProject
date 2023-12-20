@@ -2,23 +2,15 @@
 
 namespace SocialProject.Controllers
 {
-    public class AccountController:Controller
+    public class AccountController : Controller
     {
-        public IActionResult MyProfile()
+        public IActionResult Login()
         {
-            return View("MyProfile");
-        }
-        public IActionResult Friends()
+            return View("Login");
+        } 
+        public IActionResult ForgotPassword()
         {
-            return View("Friends");
-        }
-        public IActionResult Setting()
-        {
-            return View("Setting");
-        }
-        public IActionResult Privacy()
-        {
-            return View("Privacy");
+            return View("ForgotPassword");
         }
     }
 }
