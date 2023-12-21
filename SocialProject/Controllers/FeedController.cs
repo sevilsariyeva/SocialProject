@@ -8,5 +8,13 @@ namespace SocialProject.WebUI.Controllers
         {
             return View("Weather");
         }
+        public IActionResult Video()
+        {
+            return View("Video");
+        }
+        public IActionResult Favorite()
+        {
+            return View("Favorite");
+        }
     }
 }
