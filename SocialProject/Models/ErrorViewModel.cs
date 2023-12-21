@@ -1,4 +1,4 @@
-namespace SocialProject.Models
+namespace SocialProject.WebUI.Models
 {
     public class ErrorViewModel
     {

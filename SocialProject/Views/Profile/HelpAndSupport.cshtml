@@ -17,7 +17,7 @@
 
         <div class="main-navbar">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a href="index.html" class="navbar-brand d-flex align-items-center">
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand d-flex align-items-center">
                     <img src="~/images/logo.png" alt="image">
                 </a>
 
@@ -374,7 +374,7 @@
                                             </div>
                                         </div>
                                         <div class="view-all-notifications-btn">
-                                            <a href="notifications.html" class="default-btn">View All Notifications</a>
+                                            <a href="@Url.Action("Notifications", "Profile")" class="default-btn">View All Notifications</a>
                                         </div>
                                     </div>
                                 </div>
@@ -649,7 +649,7 @@
                                                 </div>
                                             </div>
                                             <div class="view-all-notifications-btn">
-                                                <a href="notifications.html" class="default-btn">View All Notifications</a>
+                                                <a href="@Url.Action("Notifications", "Profile")" class="default-btn">View All Notifications</a>
                                             </div>
                                         </div>
                                     </div>
@@ -734,7 +734,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="notifications.html" class="nav-link">
+                    <a href="@Url.Action("Notifications", "Profile")" class="nav-link">
                         <span class="icon"><i class="flaticon-bell"></i></span>
                         <span class="menu-title">Notifications</span>
                     </a>
@@ -763,24 +763,14 @@
                         <span class="menu-title">Favorite</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="events.html" class="nav-link">
-                        <span class="icon"><i class="flaticon-calendar"></i></span>
-                        <span class="menu-title">Events</span>
-                    </a>
-                </li>
+                
                 <li class="nav-item">
                     <a href="@Url.Action("LiveChat", "Message")" class="nav-link">
                         <span class="icon"><i class="flaticon-live-chat"></i></span>
                         <span class="menu-title">Live Chat</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="birthday.html" class="nav-link">
-                        <span class="icon"><i class="flaticon-cake"></i></span>
-                        <span class="menu-title">Birthday</span>
-                    </a>
-                </li>
+                
                 <li class="nav-item">
                     <a href="video.html" class="nav-link">
                         <span class="icon"><i class="flaticon-video"></i></span>
@@ -793,20 +783,15 @@
                         <span class="menu-title">Weather</span>
                     </a>
                 </li>
+                
                 <li class="nav-item">
-                    <a href="marketplace.html" class="nav-link">
-                        <span class="icon"><i class="flaticon-online-shopping"></i></span>
-                        <span class="menu-title">Marketplace</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="login.html" class="nav-link">
+                    <a href="@Url.Action("Login", "Account")" class="nav-link">
                         <span class="icon"><i class="flaticon-user"></i></span>
                         <span class="menu-title">Login</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="register.html" class="nav-link">
+                    <a href="@Url.Action("Register", "Account")" class="nav-link">
                         <span class="icon"><i class="flaticon-information"></i></span>
                         <span class="menu-title">Register</span>
                     </a>

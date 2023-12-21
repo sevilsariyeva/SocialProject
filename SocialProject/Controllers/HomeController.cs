@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SocialProject.Models;
+using SocialProject.WebUI.Models;
 using System.Diagnostics;
 
-namespace SocialProject.Controllers
+namespace SocialProject.WebUI.Controllers
 {
     public class HomeController : Controller
     {
@@ -21,8 +21,8 @@ namespace SocialProject.Controllers
         {
             return View("MyProfile");
         }
-       
-       
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

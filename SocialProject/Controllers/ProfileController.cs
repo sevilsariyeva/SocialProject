@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace SocialProject.Controllers
+namespace SocialProject.WebUI.Controllers
 {
-    public class ProfileController:Controller
+    public class ProfileController : Controller
     {
         public IActionResult MyProfile()
         {
