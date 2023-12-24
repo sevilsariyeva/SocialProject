@@ -3,6 +3,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+var connection = builder.Configuration.GetConnectionString("myconn");
+builder.Services.AddDbContext<SocialProjectDb>(options =>
+{
+    options.UseSqlServer(connection);
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialProject.WebUI", "Soci
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialProject.Entities", "SocialProject.Entities\SocialProject.Entities.csproj", "{EF86A414-46AC-4A7F-B880-BD662F2F1701}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialProject.Core", "SocialProject.Core\SocialProject.Core.csproj", "{B35F3AF6-C29B-4D6E-A653-187AC2F3FB5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EF86A414-46AC-4A7F-B880-BD662F2F1701}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF86A414-46AC-4A7F-B880-BD662F2F1701}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF86A414-46AC-4A7F-B880-BD662F2F1701}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B35F3AF6-C29B-4D6E-A653-187AC2F3FB5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B35F3AF6-C29B-4D6E-A653-187AC2F3FB5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B35F3AF6-C29B-4D6E-A653-187AC2F3FB5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B35F3AF6-C29B-4D6E-A653-187AC2F3FB5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
