@@ -1,56 +1,37 @@
-﻿<!-- Start Preloader Area -->
-<div class="profile-authentication-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-12">
-                <div class="profile-authentication-image">
-                    <div class="content-image">
-                        <div class="logo">
-                            <a href="@Url.Action("Index", "Home")"><img src="~/images/logo.png" alt="Zust"></a>
-                        </div>
-                        <div class="vector-image">
-                            <img src="~/images/vector.png" alt="image">
-                        </div>
-                    </div>
-                </div>
-            </div>
+﻿@{
+    Layout = null; // This will prevent the layout from being applied to this view
+}
 
-            <div class="col-lg-6 col-md-12">
-                <div class="login-form">
-                    <h2>Login</h2>
+<div class="login-form">
+    <h2>Login</h2>
 
-                    <form>
-                        <div class="form-group">
-                            <label>Username or email</label>
-                            <input type="text" class="form-control">
-                        </div>
+    <form>
+        <div class="form-group">
+            <label>Username or email</label>
+            <input type="text" class="form-control">
+        </div>
 
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control">
-                        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control">
+        </div>
 
-                        <div class="remember-me-wrap d-flex justify-content-between align-items-center">
-                            <p>
-                                <input type="checkbox" id="test1">
-                                <label for="test1">Remember me</label>
-                            </p>
+        <div class="remember-me-wrap d-flex justify-content-between align-items-center">
+            <p>
+                <input type="checkbox" id="test1">
+                <label for="test1">Remember me</label>
+            </p>
 
-                            <div class="lost-your-password-wrap">
-                                <a href="@Url.Action("ForgotPassword", "Account")" class="lost-your-password">Forgot password ?</a>
-                            </div>
-                        </div>
-                        <button type="submit" class="default-btn">Login</button>
-                        <div class="or-text"><span>Or</span></div>
-                        <button type="submit" class="google-btn">Log In with Google</button>
-                    </form>
-                </div>
+            <div class="lost-your-password-wrap">
+                <a href="@Url.Action("ForgotPassword", "Account")" class="lost-your-password">Forgot password ?</a>
             </div>
         </div>
-    </div>
-
-    <div class="home-btn-icon">
-        <a href="@Url.Action("Index", "Home")"><i class="flaticon-home"></i></a>
-    </div>
+        <button type="submit" class="default-btn">Login</button>
+        <div class="or-text"><span>Or</span></div>
+        <button type="submit" class="google-btn">Log In with Google</button>
+    </form>
 </div>
-<!-- End Preloader Area -->
+
+<div class="home-btn-icon">
+    <a href="@Url.Action("Index", "Home")"><i class="flaticon-home"></i></a>
+</div>
