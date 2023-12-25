@@ -1,11 +1,6 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SocialProject.Entities;
-using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,9 +13,10 @@ builder.Services.AddDbContext<CustomIdentityDbContext>(options =>
 });
 
 builder.Services.AddIdentity<CustomIdentityUser, CustomIdentityRole>()
-        .AddEntityFrameworkStores<CustomIdentityDbContext>()
-        .AddDefaultTokenProviders();
+    .AddEntityFrameworkStores<CustomIdentityDbContext>()
+    .AddDefaultTokenProviders();
 
+builder.Services.AddScoped<IPasswordHasher<CustomIdentityUser>, PasswordHasher<CustomIdentityUser>>();
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -34,8 +30,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication(); 
+
 app.UseAuthorization();
-app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",

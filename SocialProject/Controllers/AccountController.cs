@@ -13,13 +13,22 @@ namespace SocialProject.WebUI.Controllers
         private SignInManager<CustomIdentityUser> _signInManager;
         private IWebHostEnvironment _webHost;
         private CustomIdentityDbContext _context;
+        private readonly IPasswordHasher<CustomIdentityUser> _passwordHasher;
 
         public AccountController(
            UserManager<CustomIdentityUser> userManager,
-           RoleManager<CustomIdentityRole> roleManager)
+           RoleManager<CustomIdentityRole> roleManager,
+           IPasswordHasher<CustomIdentityUser> passwordHasher,
+           CustomIdentityDbContext context,
+           IWebHostEnvironment webHost,
+           SignInManager<CustomIdentityUser> signInManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
+            _passwordHasher = passwordHasher;
+            _context = context;
+            _webHost = webHost;
         }
         public IActionResult Register()
         {
@@ -31,7 +40,11 @@ namespace SocialProject.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                if (string.IsNullOrEmpty(model.Password))
+                {
+                    ModelState.AddModelError("Password", "Please enter a password");
+                    return View(model);
+                }
                 CustomIdentityUser user = new CustomIdentityUser
                 {
                     UserName = model.Username,
@@ -39,27 +52,12 @@ namespace SocialProject.WebUI.Controllers
                     ImageUrl = model.ImageUrl,
                 };
 
-                IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+                user.PasswordHash = _passwordHasher.HashPassword(user, model.Password); 
+
+                IdentityResult result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    if (!await _roleManager.RoleExistsAsync("Admin"))
-                    {
-                        CustomIdentityRole role = new CustomIdentityRole
-                        {
-                            Name = "Admin"
-                        };
-
-                        IdentityResult roleResult = await _roleManager.CreateAsync(role);
-                        if (!roleResult.Succeeded)
-                        {
-                            ModelState.AddModelError("", "We can not add the role!");
-                            return View(model);
-                        }
-                    }
-
-                    _userManager.AddToRoleAsync(user, "Admin").Wait();
                     return RedirectToAction("Login", "Account");
-
                 }
             }
 
