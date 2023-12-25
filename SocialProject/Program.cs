@@ -17,6 +17,10 @@ builder.Services.AddIdentity<CustomIdentityUser, CustomIdentityRole>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IPasswordHasher<CustomIdentityUser>, PasswordHasher<CustomIdentityUser>>();
+//builder.Services.AddAntiforgery(options =>
+//{
+//    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+//});
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

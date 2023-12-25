@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using SocialProject.Entities;
+using SocialProject.WebUI.Helpers;
 using SocialProject.WebUI.Models;
 
 namespace SocialProject.WebUI.Controllers
@@ -40,33 +41,80 @@ namespace SocialProject.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (string.IsNullOrEmpty(model.Password))
+                var helper = new ImageHelper(_webHost);
+                if (model.File != null)
                 {
-                    ModelState.AddModelError("Password", "Please enter a password");
-                    return View(model);
+                    model.ImageUrl = await helper.SaveFile(model.File);
                 }
+
                 CustomIdentityUser user = new CustomIdentityUser
                 {
+                    Id = Guid.NewGuid().ToString(),
                     UserName = model.Username,
                     Email = model.Email,
                     ImageUrl = model.ImageUrl,
                 };
 
-                user.PasswordHash = _passwordHasher.HashPassword(user, model.Password); 
-
-                IdentityResult result = await _userManager.CreateAsync(user);
+                IdentityResult result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    if (!await _roleManager.RoleExistsAsync("Admin"))
+                    {
+                        CustomIdentityRole role = new CustomIdentityRole
+                        {
+                            Name = "Admin"
+                        };
+
+                        IdentityResult roleResult = await _roleManager.CreateAsync(role);
+                        if (!roleResult.Succeeded)
+                        {
+                            ModelState.AddModelError("", "We can not add the role!");
+                            return View(model);
+                        }
+                    }
+
+                    _userManager.AddToRoleAsync(user, "Admin").Wait();
                     return RedirectToAction("Login", "Account");
+
                 }
             }
 
             return View(model);
         }
+
         public IActionResult Login()
         {
             return View("Login");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                // Log or debug the 'errors' to see validation issues
+            }
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
+                if (result.Succeeded)
+                {
+                    var user = _context.Users.SingleOrDefault(u => u.UserName == model.Username);
+                    if (user != null)
+                    {
+                        user.ConnectTime = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString();
+                        user.IsOnline = true;
+                        _context.Users.Update(user);
+                        await _context.SaveChangesAsync();
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("", "Invalid Login");
+            }
+            return View(model);
+        }
+
         public IActionResult ForgotPassword()
         {
             return View("ForgotPassword");
