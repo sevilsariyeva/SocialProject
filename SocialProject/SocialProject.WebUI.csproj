@@ -81,4 +81,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SocialProject.Entities\SocialProject.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
