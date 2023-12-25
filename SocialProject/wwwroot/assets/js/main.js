@@ -122,16 +122,3 @@ jQuery(function ($) {
 	});
 
 }(jQuery));
-const currentLocation = window.location.href;
-
-// Select all menu items
-const menuItems = document.querySelectorAll('.nav-item');
-
-// Loop through each menu item
-menuItems.forEach(item => {
-	// Check if the href of the menu item matches the current URL
-	if (item.href === currentLocation) {
-		// Add the "active" class to the parent list item
-		item.parentNode.classList.add('active');
-	}
-});

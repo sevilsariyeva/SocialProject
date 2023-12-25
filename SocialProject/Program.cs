@@ -4,10 +4,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 var connection = builder.Configuration.GetConnectionString("myconn");
-builder.Services.AddDbContext<SocialProjectDb>(options =>
-{
-    options.UseSqlServer(connection);
-});
+//builder.Services.AddDbContext<SocialProjectDb>(options =>
+//{
+//    options.UseSqlServer(connection);
+//});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

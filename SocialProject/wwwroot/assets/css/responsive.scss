@@ -20,7 +20,7 @@
                     .nav-item {
                         .nav-link {
                             padding: 5px 0 5px 40px;
-
+        
                             .icon {
                                 height: 30px;
                                 width: 30px;
@@ -32,26 +32,22 @@
                                 top: 50%;
                                 transform: translateY(-50%);
                             }
-
                             &::before {
                                 left: -8px;
                                 background-color: var(--main-color);
                             }
-
                             .menu-title {
                                 display: block;
                             }
                         }
-
                         &.active, &:hover {
                             .nav-link {
                                 color: var(--main-color);
-
+                                
                                 .icon {
                                     color: var(--white-color);
                                     background-color: var(--main-color);
                                 }
-
                                 &::before {
                                     height: 100%;
                                     opacity: 1;
@@ -61,7 +57,7 @@
                         }
                     }
                 }
-            }
+            } 
         }
     }
 
@@ -98,7 +94,6 @@
                     &.d-flex {
                         display: block !important;
                     }
-
                     li {
                         display: inline-block;
                         margin-right: 5px;
@@ -107,7 +102,6 @@
                             margin-right: 0;
                         }
                     }
-
                     .photo-btn {
                         button {
                             font-size: 12px;
@@ -118,7 +112,6 @@
                             }
                         }
                     }
-
                     .video-btn {
                         button {
                             font-size: 12px;
@@ -129,7 +122,6 @@
                             }
                         }
                     }
-
                     .tag-btn {
                         button {
                             font-size: 12px;
@@ -140,7 +132,6 @@
                             }
                         }
                     }
-
                     .post-btn {
                         button {
                             padding: 2px 10px;
@@ -150,7 +141,6 @@
                 }
             }
         }
-
         .news-feed-post {
             .post-header {
                 .image {
@@ -161,7 +151,6 @@
                     }
                 }
             }
-
             .post-body {
                 .post-meta-wrap {
                     .post-react {
@@ -170,29 +159,24 @@
                         .number {
                             display: none;
                         }
-
                         .react-list {
                             width: 252px;
                         }
-
                         a {
                             max-width: 18px;
                         }
                     }
-
                     .post-comment {
                         .number {
                             display: none;
                         }
                     }
-
                     .post-share {
                         .number {
                             display: none;
                         }
                     }
                 }
-
                 .post-comment-list {
                     .comment-list {
                         .comment-image {
@@ -200,13 +184,11 @@
                                 max-width: 50px;
                             }
                         }
-
                         .comment-info {
                             padding-left: 60px;
                         }
                     }
                 }
-
                 .post-footer {
                     .footer-image {
                         a {
@@ -215,7 +197,6 @@
                             }
                         }
                     }
-
                     .form-group {
                         padding-left: 50px;
                     }
@@ -233,7 +214,6 @@
                 }
             }
         }
-
         .widget-who-following {
             .following-item {
                 .name {
@@ -259,7 +239,6 @@
                 bottom: 10px;
             }
         }
-
         .profile-info-box {
             padding: 20px;
 
@@ -271,15 +250,13 @@
                         a {
                             i {
                                 display: none;
-                            }
+                            } 
                         }
-                    }
+                    }                   
                 }
-
                 &.d-flex {
                     display: block !important;
                 }
-
                 .info-text {
                     margin-top: 15px;
 
@@ -287,17 +264,14 @@
                         margin-left: 0 !important;
                     }
                 }
-
                 .statistics {
                     text-align: start;
                     margin-top: 10px;
                 }
             }
-
             .profile-social {
                 display: none;
             }
-
             .profile-list-tabs {
                 margin-top: 15px;
 
@@ -313,23 +287,19 @@
             }
         }
     }
-
     .friends-inner-box-style {
         padding: 25px;
 
         &.d-flex {
             display: block !important;
         }
-
         .title {
             margin-bottom: 15px;
         }
-
         .friends-search-box {
             width: 250px;
             margin-top: 20px;
         }
-
         .nav {
             .nav-item {
                 margin-right: 10px;
@@ -340,23 +310,19 @@
             }
         }
     }
-
     .photos-inner-box-style {
         padding: 25px;
 
         &.d-flex {
             display: block !important;
         }
-
         .title {
             margin-bottom: 15px;
         }
-
         .photos-search-box {
             width: 250px;
             margin-top: 20px;
         }
-
         .nav {
             .nav-item {
                 margin-right: 10px;
@@ -367,7 +333,6 @@
             }
         }
     }
-
     .single-friends-card {
         .friends-content {
             .friends-info {
@@ -392,11 +357,9 @@
             }
         }
     }
-
     .account-setting-form {
         padding: 20px;
     }
-
     .account-setting-notification {
         padding: 20px;
 
@@ -404,7 +367,6 @@
             margin-bottom: 25px;
         }
     }
-
     .account-setting-message {
         padding: 20px;
     }
@@ -417,7 +379,7 @@
     // Page Banner
     .page-banner-box {
         padding: 50px;
-
+      
         h3 {
             font-size: 25px;
         }
@@ -427,7 +389,6 @@
     .help-and-support-search-box {
         padding: 20px;
     }
-
     .help-and-support-box-content {
         padding: 20px;
     }
@@ -459,13 +420,11 @@
                             margin: 12px 0 21.28px 15.28px;
                         }
                     }
-
                     .chat-avatar {
                         position: relative;
                         top: 12px;
                     }
                 }
-
                 .chat.chat-left {
                     .chat-avatar {
                         top: 12px;
@@ -473,7 +432,6 @@
                 }
             }
         }
-
         .chat-list-footer {
             form {
                 padding-right: 60px;
@@ -491,21 +449,19 @@
         padding: 25px;
         border-radius: 5px;
         margin-top: 25px;
+
         padding: 25px;
 
         &.d-flex {
             display: block !important;
         }
-
         .title {
             margin-bottom: 15px;
         }
-
         .groups-search-box {
             width: 250px;
             margin-top: 20px;
         }
-
         .nav {
             .nav-item {
                 margin-right: 10px;
@@ -516,7 +472,6 @@
             }
         }
     }
-
     .single-groups-card {
         .groups-content {
             .groups-info {
@@ -544,7 +499,6 @@
             }
         }
     }
-
     .favourite-information-box {
         .profile-box {
             .text {
@@ -552,16 +506,13 @@
             }
         }
     }
-
     .favourite-inner-box-style {
         .title {
             margin-bottom: 20px;
         }
-
         &.d-flex {
-            display: block !important;
+            display: block!important;
         }
-
         .favourite-search-box {
             width: 252px;
         }
@@ -573,21 +524,19 @@
         padding: 25px;
         border-radius: 5px;
         margin-top: 25px;
+
         padding: 25px;
 
         &.d-flex {
             display: block !important;
         }
-
         .title {
             margin-bottom: 15px;
         }
-
         .events-search-box {
             width: 250px;
             margin-top: 20px;
         }
-
         .nav {
             .nav-item {
                 margin-right: 10px;
@@ -612,12 +561,10 @@
                         max-width: 30px;
                     }
                 }
-
                 h3 {
                     font-size: 14px;
                 }
             }
-
             .live-chat-right {
                 li {
                     margin-right: 0;
@@ -633,7 +580,6 @@
                 }
             }
         }
-
         .live-chat-container {
             .chat-content {
                 .chat {
@@ -642,13 +588,11 @@
                             margin: 12px 0 21.28px 15.28px;
                         }
                     }
-
                     .chat-avatar {
                         position: relative;
                         top: 12px;
                     }
                 }
-
                 .chat.chat-left {
                     .chat-avatar {
                         top: 12px;
@@ -656,7 +600,6 @@
                 }
             }
         }
-
         .chat-list-footer {
             form {
                 padding-right: 60px;
@@ -679,13 +622,11 @@
                 .rounded-circle {
                     position: relative;
                 }
-
                 .send-content {
                     margin-top: 15px;
                 }
             }
         }
-
         .birthday-list-box {
             .list-item {
                 .list-content {
@@ -700,12 +641,10 @@
         .title {
             margin-bottom: 15px;
         }
-
         &.d-flex {
             display: block !important;
         }
     }
-
     .products-details-image {
         height: 350px;
     }
@@ -718,7 +657,6 @@
             margin-bottom: 20px;
             font-size: 18px;
         }
-
         form {
             .lost-your-password-wrap {
                 margin-top: -12px;
@@ -734,7 +672,6 @@
             margin-bottom: 20px;
             font-size: 18px;
         }
-
         form {
             .lost-your-password-wrap {
                 margin-top: -12px;
@@ -772,7 +709,6 @@
                 }
             }
         }
-
         .widget-who-following {
             .following-item {
                 .name {
@@ -790,11 +726,9 @@
                     &.d-flex {
                         display: flex !important;
                     }
-
                     li {
                         margin-right: 0;
                     }
-
                     .photo-btn {
                         button {
                             font-size: 15px;
@@ -805,7 +739,6 @@
                             }
                         }
                     }
-
                     .video-btn {
                         button {
                             font-size: 15px;
@@ -816,7 +749,6 @@
                             }
                         }
                     }
-
                     .tag-btn {
                         button {
                             font-size: 15px;
@@ -827,7 +759,6 @@
                             }
                         }
                     }
-
                     .post-btn {
                         button {
                             padding: 5px 25px;
@@ -837,7 +768,6 @@
                 }
             }
         }
-
         .news-feed-stories {
             .stories-item {
                 span {
@@ -865,7 +795,6 @@
                 right: 55px;
             }
         }
-
         .others-option-for-responsive {
             .dot-menu {
                 right: -25px;
@@ -896,7 +825,7 @@
                     .nav-item {
                         .nav-link {
                             padding: 5px 0 5px 40px;
-
+        
                             .icon {
                                 height: 30px;
                                 width: 30px;
@@ -908,26 +837,22 @@
                                 top: 50%;
                                 transform: translateY(-50%);
                             }
-
                             &::before {
                                 left: -8px;
                                 background-color: var(--main-color);
                             }
-
                             .menu-title {
                                 display: block;
                             }
                         }
-
                         &.active, &:hover {
                             .nav-link {
                                 color: var(--main-color);
-
+                                
                                 .icon {
                                     color: var(--white-color);
                                     background-color: var(--main-color);
                                 }
-
                                 &::before {
                                     height: 100%;
                                     opacity: 1;
@@ -937,7 +862,7 @@
                         }
                     }
                 }
-            }
+            } 
         }
     }
 
@@ -960,13 +885,11 @@
                 }
             }
         }
-
         .main-responsive-nav {
             .main-responsive-menu {
                 right: 65px;
             }
         }
-
         .others-option-for-responsive {
             .dot-menu {
                 right: 0;
@@ -978,7 +901,7 @@
     .news-feed-area {
         margin-top: 25px;
         margin-bottom: 25px;
-
+        
         .news-feed-post {
             .post-header {
                 .image {
@@ -989,7 +912,6 @@
                     }
                 }
             }
-
             .post-body {
                 .post-meta-wrap {
                     .post-react {
@@ -998,29 +920,24 @@
                         .number {
                             display: none;
                         }
-
                         .react-list {
                             width: 252px;
                         }
-
                         a {
                             max-width: 18px;
                         }
                     }
-
                     .post-comment {
                         .number {
                             display: none;
                         }
                     }
-
                     .post-share {
                         .number {
                             display: none;
                         }
                     }
                 }
-
                 .post-comment-list {
                     .comment-list {
                         .comment-image {
@@ -1028,13 +945,11 @@
                                 max-width: 50px;
                             }
                         }
-
                         .comment-info {
                             padding-left: 60px;
                         }
                     }
                 }
-
                 .post-footer {
                     .footer-image {
                         a {
@@ -1043,7 +958,6 @@
                             }
                         }
                     }
-
                     .form-group {
                         padding-left: 50px;
                     }
@@ -1061,7 +975,6 @@
                 }
             }
         }
-
         .widget-who-following {
             .following-item {
                 .name {
@@ -1094,15 +1007,13 @@
                         a {
                             i {
                                 display: none;
-                            }
+                            } 
                         }
-                    }
+                    }                   
                 }
-
                 &.d-flex {
                     display: block !important;
                 }
-
                 .info-text {
                     margin-top: 15px;
 
@@ -1110,17 +1021,14 @@
                         margin-left: 0 !important;
                     }
                 }
-
                 .statistics {
                     text-align: start;
                     margin-top: 10px;
                 }
             }
-
             .profile-social {
                 display: none;
             }
-
             .profile-list-tabs {
                 margin-top: 15px;
 
@@ -1134,35 +1042,29 @@
             }
         }
     }
-
     .friends-inner-box-style {
         padding: 25px;
 
         &.d-flex {
             display: block !important;
         }
-
         .title {
             margin-bottom: 15px;
         }
-
         .friends-search-box {
             width: 250px;
             margin-top: 20px;
         }
     }
-
     .photos-inner-box-style {
         padding: 25px;
 
         &.d-flex {
             display: block !important;
         }
-
         .title {
             margin-bottom: 15px;
         }
-
         .photos-search-box {
             width: 250px;
             margin-top: 20px;
@@ -1187,7 +1089,7 @@
     // Page Banner
     .page-banner-box {
         padding: 50px;
-
+      
         h3 {
             font-size: 30px;
         }
@@ -1203,13 +1105,11 @@
                             margin: 12px 0 21.28px 15.28px;
                         }
                     }
-
                     .chat-avatar {
                         position: relative;
                         top: 12px;
                     }
                 }
-
                 .chat.chat-left {
                     .chat-avatar {
                         top: 12px;
@@ -1236,7 +1136,6 @@
             }
         }
     }
-
     .favourite-information-box {
         .profile-box {
             .text {
@@ -1244,7 +1143,6 @@
             }
         }
     }
-
     .favourite-inner-box-style {
         .favourite-search-box {
             width: 325px;
@@ -1257,21 +1155,19 @@
         padding: 25px;
         border-radius: 5px;
         margin-top: 25px;
+
         padding: 25px;
 
         &.d-flex {
             display: block !important;
         }
-
         .title {
             margin-bottom: 15px;
         }
-
         .events-search-box {
             width: 250px;
             margin-top: 20px;
         }
-
         .nav {
             .nav-item {
                 margin-right: 10px;
@@ -1293,13 +1189,11 @@
                             margin: 12px 0 21.28px 15.28px;
                         }
                     }
-
                     .chat-avatar {
                         position: relative;
                         top: 12px;
                     }
                 }
-
                 .chat.chat-left {
                     .chat-avatar {
                         top: 12px;
@@ -1312,7 +1206,7 @@
     // Birthday Area CSS
     .all-birthday-body {
         padding: 20px;
-
+        
         .birthday-list-box {
             .list-item {
                 .list-content {
@@ -1321,7 +1215,6 @@
                     .rounded-circle {
                         max-width: 45px;
                     }
-
                     .text {
                         top: -20px;
                     }
@@ -1357,7 +1250,7 @@
                     .nav-item {
                         .nav-link {
                             padding: 5px 0 5px 40px;
-
+        
                             .icon {
                                 height: 30px;
                                 width: 30px;
@@ -1369,26 +1262,22 @@
                                 top: 50%;
                                 transform: translateY(-50%);
                             }
-
                             &::before {
                                 left: -8px;
                                 background-color: var(--main-color);
                             }
-
                             .menu-title {
                                 display: block;
                             }
                         }
-
                         &.active, &:hover {
                             .nav-link {
                                 color: var(--main-color);
-
+                                
                                 .icon {
                                     color: var(--white-color);
                                     background-color: var(--main-color);
                                 }
-
                                 &::before {
                                     height: 100%;
                                     opacity: 1;
@@ -1398,7 +1287,7 @@
                         }
                     }
                 }
-            }
+            } 
         }
     }
 
@@ -1420,7 +1309,6 @@
                 .navbar-brand {
                     max-width: 125px;
                 }
-
                 .navbar {
                     .search-box {
                         width: 200px;
@@ -1428,13 +1316,11 @@
                 }
             }
         }
-
         .main-responsive-nav {
             .main-responsive-menu {
                 right: 65px;
             }
         }
-
         .others-option-for-responsive {
             .dot-menu {
                 right: 0;
@@ -1466,7 +1352,6 @@
                     }
                 }
             }
-
             .profile-likes {
                 ul {
                     li {
@@ -1476,20 +1361,17 @@
                 }
             }
         }
-
         .widget-birthday {
             .birthday-title {
                 h3 {
                     font-size: 15px;
                 }
-
                 span {
                     a {
                         font-size: 13px;
                     }
                 }
             }
-
             .item {
                 .thumb {
                     width: 45px;
@@ -1500,7 +1382,6 @@
                         height: 45px;
                     }
                 }
-
                 .info {
                     .title {
                         font-size: 14px;
@@ -1531,7 +1412,6 @@
             }
         }
     }
-
     .single-friends-card {
         .friends-content {
             padding: 0 10px 10px;
@@ -1550,7 +1430,6 @@
     .single-groups-card {
         .groups-content {
             padding: 0 10px 10px;
-
             .groups-info {
                 .text {
                     h3 {
@@ -1576,7 +1455,6 @@
             .rounded-circle {
                 max-width: 45px;
             }
-
             .text {
                 margin-top: -20px;
             }
@@ -1605,7 +1483,7 @@
                     .nav-item {
                         .nav-link {
                             padding: 5px 0 5px 40px;
-
+        
                             .icon {
                                 height: 30px;
                                 width: 30px;
@@ -1617,26 +1495,22 @@
                                 top: 50%;
                                 transform: translateY(-50%);
                             }
-
                             &::before {
                                 left: -8px;
                                 background-color: var(--main-color);
                             }
-
                             .menu-title {
                                 display: block;
                             }
                         }
-
                         &.active, &:hover {
                             .nav-link {
                                 color: var(--main-color);
-
+                                
                                 .icon {
                                     color: var(--white-color);
                                     background-color: var(--main-color);
                                 }
-
                                 &::before {
                                     height: 100%;
                                     opacity: 1;
@@ -1646,7 +1520,7 @@
                         }
                     }
                 }
-            }
+            } 
         }
     }
 
@@ -1668,7 +1542,6 @@
                 .navbar-brand {
                     max-width: 125px;
                 }
-
                 .navbar {
                     .search-box {
                         width: 200px;
@@ -1676,13 +1549,11 @@
                 }
             }
         }
-
         .main-responsive-nav {
             .main-responsive-menu {
                 right: 65px;
             }
         }
-
         .others-option-for-responsive {
             .dot-menu {
                 right: 0;
@@ -1707,7 +1578,6 @@
                     }
                 }
             }
-
             .profile-likes {
                 ul {
                     li {
@@ -1717,20 +1587,17 @@
                 }
             }
         }
-
         .widget-birthday {
             .birthday-title {
                 h3 {
                     font-size: 15px;
                 }
-
                 span {
                     a {
                         font-size: 13px;
                     }
                 }
             }
-
             .item {
                 .thumb {
                     width: 45px;
@@ -1741,7 +1608,6 @@
                         height: 45px;
                     }
                 }
-
                 .info {
                     .title {
                         font-size: 14px;
@@ -1781,7 +1647,6 @@
                     }
                 }
             }
-
             .profile-likes {
                 ul {
                     li {
@@ -1791,20 +1656,17 @@
                 }
             }
         }
-
         .widget-birthday {
             .birthday-title {
                 h3 {
                     font-size: 15px;
                 }
-
                 span {
                     a {
                         font-size: 13px;
                     }
                 }
             }
-
             .item {
                 .thumb {
                     width: 45px;
@@ -1815,7 +1677,6 @@
                         height: 45px;
                     }
                 }
-
                 .info {
                     .title {
                         font-size: 14px;
@@ -1853,7 +1714,6 @@
             }
         }
     }
-
     .single-friends-card {
         .friends-content {
             .friends-info {
@@ -1890,7 +1750,7 @@
     .live-chat-slides {
         .chat-box {
             .image {
-                .status-online {
+                .status-online {    
                     right: 35px;
                     top: 10px;
                 }
