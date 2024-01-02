@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using SocialProject.Entities;
 using SocialProject.WebUI.Models;
 using System.Diagnostics;
 
@@ -6,15 +8,19 @@ namespace SocialProject.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private UserManager<CustomIdentityUser> _userManager;
+        private CustomIdentityDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(UserManager<CustomIdentityUser> userManager, CustomIdentityDbContext context)
         {
-            _logger = logger;
+            _userManager = userManager;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.User = user;
             return View();
         }
         public IActionResult MyProfile()
