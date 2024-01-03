@@ -20,7 +20,12 @@ namespace SocialProject.WebUI.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            ViewBag.User = user;
+            ViewBag.User = new
+            {
+                ImageUrl = user.ImageUrl,
+                Username = user.UserName
+            };
+            var something = ViewBag.User.ImageUrl;
             return View();
         }
         public IActionResult MyProfile()
