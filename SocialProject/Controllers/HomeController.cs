@@ -23,13 +23,20 @@ namespace SocialProject.WebUI.Controllers
             ViewBag.User = new
             {
                 ImageUrl = user.ImageUrl,
-                Username = user.UserName
+                Username = user.UserName,
+                Email = user.Email
             };
-            var something = ViewBag.User.ImageUrl;
             return View();
         }
-        public IActionResult MyProfile()
+        public async Task<IActionResult> MyProfile()
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.User = new
+            {
+                ImageUrl = user.ImageUrl,
+                Username = user.UserName,
+                Email = user.Email
+            };
             return View("MyProfile");
         }
 

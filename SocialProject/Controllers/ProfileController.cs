@@ -18,27 +18,67 @@ namespace SocialProject.WebUI.Controllers
         public async Task<IActionResult> MyProfile()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            ViewBag.User = user;
+            ViewBag.User = new
+            {
+                ImageUrl = user.ImageUrl,
+                Username = user.UserName,
+                Email = user.Email
+            };
             return View("MyProfile");
         }
-        public IActionResult Friends()
+        public async Task<IActionResult> Friends()
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.User = new
+            {
+                ImageUrl = user.ImageUrl,
+                Username = user.UserName,
+                Email = user.Email
+            };
             return View("Friends");
         }
-        public IActionResult Setting()
+        public async Task<IActionResult> Setting()
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.User = new
+            {
+                ImageUrl = user.ImageUrl,
+                Username = user.UserName,
+                Email = user.Email
+            };
             return View("Setting");
         }
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.User = new
+            {
+                ImageUrl = user.ImageUrl,
+                Username = user.UserName,
+                Email = user.Email
+            };
             return View("Privacy");
         }
-        public IActionResult HelpAndSupport()
+        public async Task<IActionResult> HelpAndSupport()
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.User = new
+            {
+                ImageUrl = user.ImageUrl,
+                Username = user.UserName,
+                Email = user.Email
+            };
             return View("HelpAndSupport");
         }
-        public IActionResult Notifications()
+        public async Task<IActionResult> Notifications()
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.User = new
+            {
+                ImageUrl = user.ImageUrl,
+                Username = user.UserName,
+                Email = user.Email
+            };
             return View("Notifications");
         }
     }

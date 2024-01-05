@@ -439,15 +439,15 @@
                                     <a href="#" class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <div class="menu-profile">
                                             <img src="~/assets/images/user/user-1.jpg" class="rounded-circle" alt="image">
-                                            <span class="name">Matthew</span>
+                                            <span class="name">@ViewBag.User.Username</span>
                                             <span class="status-online"></span>
                                         </div>
                                     </a>
 
                                     <div class="dropdown-menu">
                                         <div class="profile-header">
-                                            <h3>Matthew Turner</h3>
-                                            <a href="mailto:matthew507@gmail.com">matthew507@gmail.com</a>
+                                            <h3>@ViewBag.User.Username</h3>
+                                            <a href="mailto:@ViewBag.User.Email">@ViewBag.User.Email</a>
                                         </div>
                                         <ul class="profile-body">
                                             <li><i class="flaticon-user"></i> <a href="@Url.Action("MyProfile", "Profile")">My Profile</a></li>
@@ -714,15 +714,15 @@
                                         <a href="#" class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <div class="menu-profile">
                                                 <img src="~/assets/images/user/user-1.jpg" class="rounded-circle" alt="image">
-                                                <span class="name">Matthew</span>
+                                                <span class="name">ViewBag.User.Username</span>
                                                 <span class="status-online"></span>
                                             </div>
                                         </a>
 
                                         <div class="dropdown-menu">
                                             <div class="profile-header">
-                                                <h3>Matthew Turner</h3>
-                                                <a href="mailto:matthew507@gmail.com">matthew507@gmail.com</a>
+                                                <h3>ViewBag.User.Username</h3>
+                                                <a href="mailto:ViewBag.User.Email">ViewBag.User.Email</a>
                                             </div>
                                             <ul class="profile-body">
                                                 <li><i class="flaticon-user"></i> <a href="@Url.Action("MyProfile", "Profile")">My Profile</a></li>
