@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SocialProject.Entities;
 using SocialProject.WebUI.Models;
@@ -8,13 +9,15 @@ namespace SocialProject.WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private UserManager<CustomIdentityUser> _userManager;
         private CustomIdentityDbContext _context;
 
-        public HomeController(UserManager<CustomIdentityUser> userManager, CustomIdentityDbContext context)
+        public HomeController(UserManager<CustomIdentityUser> userManager, CustomIdentityDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _userManager = userManager;
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> Index()
@@ -38,6 +41,24 @@ namespace SocialProject.WebUI.Controllers
                 Email = user.Email
             };
             return View("MyProfile");
+        }
+
+        public async Task<IActionResult> Upload(List<IFormFile> files)
+        {
+            foreach (var file in files)
+            {
+                if (file.Length > 0)
+                {
+                    var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "assets", "images", "posts");
+                    var filePath = Path.Combine(uploadsFolder, file.FileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                }
+            }
+            return RedirectToAction("Index");
         }
 
 

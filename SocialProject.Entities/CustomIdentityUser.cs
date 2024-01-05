@@ -15,6 +15,7 @@ namespace SocialProject.Entities
         public bool HasRequestPending { get; set; }
         public DateTime DisconnectTime { get; set; } = DateTime.Now;
         public string ConnectTime { get; set; } = "";
+        public List<Post>? Posts { get; set; }
 
         //public virtual ICollection<Friend>? Friends { get; set; }
         //public virtual ICollection<FriendRequest>? FriendRequests { get; set; }
