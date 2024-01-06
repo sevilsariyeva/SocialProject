@@ -85,4 +85,8 @@
     <ProjectReference Include="..\SocialProject.Entities\SocialProject.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\images\posts\" />
+  </ItemGroup>
+
 </Project>

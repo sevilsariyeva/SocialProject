@@ -211,26 +211,30 @@
                     <div class="news-feed news-feed-form">
                         <h3 class="news-feed-title">Create New Post</h3>
 
-                    <form id="uploadForm" asp-action="Upload" method="post" enctype="multipart/form-data">
+                    <form id="uploadForm" action="Upload" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <textarea id="message" name="message" class="form-control" placeholder="Write something here..."></textarea>
                         </div>
-                        <img id="image-input" name="images" src=""> 
+                        <div id="image-preview-container"></div>
+                        <div id="video-preview-container" style="max-width:200px; height:auto;"></div>
+                        <input id="photo-input" name="files" type="file" accept="image/*" multiple style="display: none;">
+                        <input id="video-input" name="videos" type="file" accept="video/*" multiple style="display: none;">
                         <ul class="button-group d-flex justify-content-between align-items-center">
                             <li class="photo-btn">
                                 <label for="photo-input">
                                     <button type="button" onclick="handlePhotoUpload()"><i class="flaticon-gallery"></i> Photo</button>
                                 </label>
-                                <input id="photo-input" name="files" type="file" accept="image/*" multiple style="display: none;">
                             </li>
                             <li class="video-btn">
-                                <button type="submit"><i class="flaticon-video"></i> Video</button>
+                                <label for="video-input">
+                                    <button type="button" onclick="handleVideoUpload()"><i class="flaticon-video"></i> Video</button>
+                                </label>
                             </li>
                             <li class="tag-btn">
-                                <button type="submit"><i class="flaticon-tag"></i> Tag Friends</button>
+                                <button type="button" onclick="submitForm('tag')"><i class="flaticon-tag"></i> Tag Friends</button>
                             </li>
                             <li class="post-btn">
-                                <button type="submit">Post</button>
+                                <button type="button" onclick="submitForm('post')">Post</button>
                             </li>
                         </ul>
                     </form>
@@ -917,5 +921,5 @@
     </div>
 </div>
 
-<script src="~/assets//js/site.js"></script>
+<script src="~/assets/js/site.js"></script>
 <!-- End Content Page Box Area -->

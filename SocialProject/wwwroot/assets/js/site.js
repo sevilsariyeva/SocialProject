@@ -1,34 +1,62 @@
-﻿'use strict';
+﻿//'use strict';
 
-//var connection = new signalR.HubConnectionBuilder().withUrl("/chathub").build();
+////var connection = new signalR.HubConnectionBuilder().withUrl("/chathub").build();
 
-connection.start().then(function () {
-    //GetAllUsers();
-    console.log("Connected");
-}).catch(function (err) {
-    return console.error(err.toString());
-});
+//connection.start().then(function () {
+//    //GetAllUsers();
+//    console.log("Connected");
+//}).catch(function (err) {
+//    return console.error(err.toString());
+//});
 
 function handlePhotoUpload() {
-    document.getElementById('photo-input').click();
+    const input = document.getElementById('photo-input');
+    input.value = ''; // Reset the input to clear the previously selected files
+    input.click();
 }
-
+function handleVideoUpload() {
+    const input = document.getElementById('video-input');
+    input.value = '';
+    input.click();
+}
 document.getElementById('photo-input').addEventListener('change', function (e) {
     const selectedFiles = Array.from(e.target.files);
-    const imageInput = document.getElementById('image-input');
-    let imagesData = ''; 
+    const imagePreviewContainer = document.getElementById('image-preview-container');
 
-    selectedFiles.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function () {
-
-            imageInput.src = reader.result;
-        };
-        reader.readAsDataURL(file);
-    });
-
-    e.target.value = '';
+    if (selectedFiles && selectedFiles.length > 0) {
+        selectedFiles.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const imagePreview = document.createElement('img');
+                imagePreview.src = event.target.result;
+                imagePreviewContainer.appendChild(imagePreview);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+    // Reset the file input after reading files
+    this.value = '';
 });
+
+document.getElementById('video-input').addEventListener('change', function (e) {
+    const selectedFiles = Array.from(e.target.files);
+    const videoPreviewContainer = document.getElementById('video-preview-container');
+
+    if (selectedFiles && selectedFiles.length > 0) {
+        selectedFiles.forEach(file => {
+            const videoPreview = document.createElement('video');
+            videoPreview.src = URL.createObjectURL(file);
+            videoPreview.controls = true;
+            videoPreviewContainer.appendChild(videoPreview);
+        });
+    }
+    this.value = '';
+});
+function submitForm(action) {
+    document.getElementById('uploadForm').setAttribute('action', action);
+    document.getElementById('uploadForm').submit();
+}
+
 
 document.getElementById('uploadForm').addEventListener('submit', function (e) {
     e.preventDefault();
