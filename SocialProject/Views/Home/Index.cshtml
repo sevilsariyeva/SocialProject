@@ -1,13 +1,14 @@
-﻿﻿@{
+﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <!-- Start Content Page Box Area -->
-    <div class="content-page-box-area">
-        <div class="row">
-            <div class="col-lg-3 col-md-12">
-                <aside class="widget-area">
-                    <div class="widget widget-view-profile">
-                        <div class="profile-box d-flex justify-content-between align-items-center">
+<!-- Start Content Page Box Area -->
+<div class="content-page-box-area">
+    <div class="row">
+        <div class="col-lg-3 col-md-12">
+            <aside class="widget-area">
+                <div class="widget widget-view-profile">
+                    <div class="profile-box d-flex justify-content-between align-items-center">
                         <a href="@Url.Action("MyProfile", "Profile")"><img src="~/assets/images/user/@ViewBag.User.ImageUrl" alt="image"></a>
                             <div class="text ms-2">
                                 <h3><a href="@Url.Action("MyProfile", "Profile")">@ViewBag.User.Username</a></h3>
@@ -210,26 +211,30 @@
                     <div class="news-feed news-feed-form">
                         <h3 class="news-feed-title">Create New Post</h3>
 
-                        <form>
-                            <div class="form-group">
-                                <textarea name="message" class="form-control" placeholder="Write something here..."></textarea>
-                            </div>
-                            <ul class="button-group d-flex justify-content-between align-items-center">
-                                <li class="photo-btn">
-                                    <button type="submit"><i class="flaticon-gallery"></i> Photo</button>
-                                </li>
-                                <li class="video-btn">
-                                    <button type="submit"><i class="flaticon-video"></i> Video</button>
-                                </li>
-                                <li class="tag-btn">
-                                    <button type="submit"><i class="flaticon-tag"></i> Tag Friends</button>
-                                </li>
-                                <li class="post-btn">
-                                    <button type="submit">Post</button>
-                                </li>
-                            </ul>
-                        </form>
-                    </div>
+                    <form id="uploadForm" asp-action="Upload" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <textarea id="message" name="message" class="form-control" placeholder="Write something here..."></textarea>
+                        </div>
+                        <img id="image-input" name="images" src=""> 
+                        <ul class="button-group d-flex justify-content-between align-items-center">
+                            <li class="photo-btn">
+                                <label for="photo-input">
+                                    <button type="button" onclick="handlePhotoUpload()"><i class="flaticon-gallery"></i> Photo</button>
+                                </label>
+                                <input id="photo-input" name="files" type="file" accept="image/*" multiple style="display: none;">
+                            </li>
+                            <li class="video-btn">
+                                <button type="submit"><i class="flaticon-video"></i> Video</button>
+                            </li>
+                            <li class="tag-btn">
+                                <button type="submit"><i class="flaticon-tag"></i> Tag Friends</button>
+                            </li>
+                            <li class="post-btn">
+                                <button type="submit">Post</button>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
 
                     <div class="news-feed news-feed-stories">
                         <div class="stories-title d-flex justify-content-between align-items-center">
@@ -881,37 +886,36 @@
                     <div class="widget widget-who-following">
                         <h3 class="widget-title">Who's Following</h3>
 
-                        <div class="following-item d-flex justify-content-between align-items-center">
-                            <a href="#"><img src="~/assets/images/user/user-42.jpg" class="rounded-circle" alt="image"></a>
-                            <span class="name"><a href="#">Shawn Lynch</a></span>
-                            <span class="add-friend"><a href="#">Add</a></span>
-                        </div>
-                        <div class="following-item d-flex justify-content-between align-items-center">
-                            <a href="#"><img src="~/assets/images/user/user-43.jpg" class="rounded-circle" alt="image"></a>
-                            <span class="name"><a href="#">Kenneth Perry</a></span>
-                            <span class="add-friend"><a href="#">Add</a></span>
-                        </div>
-                        <div class="following-item d-flex justify-content-between align-items-center">
-                            <a href="#"><img src="~/assets/images/user/user-44.jpg" class="rounded-circle" alt="image"></a>
-                            <span class="name"><a href="#">Janet Suarez</a></span>
-                            <span class="add-friend"><a href="#">Add</a></span>
-                        </div>
-                        <div class="following-item d-flex justify-content-between align-items-center">
-                            <a href="#"><img src="~/assets/images/user/user-45.jpg" class="rounded-circle" alt="image"></a>
-                            <span class="name"><a href="#">Brian Mingo</a></span>
-                            <span class="add-friend"><a href="#">Add</a></span>
-                        </div>
-                        <div class="following-item d-flex justify-content-between align-items-center">
-                            <a href="#"><img src="~/assets/images/user/user-46.jpg" class="rounded-circle" alt="image"></a>
-                            <span class="name"><a href="#">Julia Ramos</a></span>
-                            <span class="add-friend"><a href="#">Add</a></span>
-                        </div>
+                    <div class="following-item d-flex justify-content-between align-items-center">
+                        <a href="#"><img src="~/assets/images/user/user-42.jpg" class="rounded-circle" alt="image"></a>
+                        <span class="name"><a href="#">Shawn Lynch</a></span>
+                        <span class="add-friend"><a href="#">Add</a></span>
                     </div>
-                </aside>
-            </div>
+                    <div class="following-item d-flex justify-content-between align-items-center">
+                        <a href="#"><img src="~/assets/images/user/user-43.jpg" class="rounded-circle" alt="image"></a>
+                        <span class="name"><a href="#">Kenneth Perry</a></span>
+                        <span class="add-friend"><a href="#">Add</a></span>
+                    </div>
+                    <div class="following-item d-flex justify-content-between align-items-center">
+                        <a href="#"><img src="~/assets/images/user/user-44.jpg" class="rounded-circle" alt="image"></a>
+                        <span class="name"><a href="#">Janet Suarez</a></span>
+                        <span class="add-friend"><a href="#">Add</a></span>
+                    </div>
+                    <div class="following-item d-flex justify-content-between align-items-center">
+                        <a href="#"><img src="~/assets/images/user/user-45.jpg" class="rounded-circle" alt="image"></a>
+                        <span class="name"><a href="#">Brian Mingo</a></span>
+                        <span class="add-friend"><a href="#">Add</a></span>
+                    </div>
+                    <div class="following-item d-flex justify-content-between align-items-center">
+                        <a href="#"><img src="~/assets/images/user/user-46.jpg" class="rounded-circle" alt="image"></a>
+                        <span class="name"><a href="#">Julia Ramos</a></span>
+                        <span class="add-friend"><a href="#">Add</a></span>
+                    </div>
+                </div>
+            </aside>
         </div>
     </div>
+</div>
 
-    <!-- End Content Page Box Area -->
-   
-
+<script src="~/assets//js/site.js"></script>
+<!-- End Content Page Box Area -->
