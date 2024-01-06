@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SocialProject.Entities;
 using SocialProject.WebUI.Models;
 using System.Diagnostics;
@@ -40,7 +41,16 @@ namespace SocialProject.WebUI.Controllers
             return View("MyProfile");
         }
 
+        public async Task<List<CustomIdentityUser>> GetAllFriends()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var allFriends = _context.Friends
+                .Where(f => f.OwnId == user.Id)
+                .Select(f => f.YourFriend)
+                .ToList();
 
+            return allFriends;
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

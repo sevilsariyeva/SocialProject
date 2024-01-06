@@ -7636,3 +7636,13 @@ Profile Authentication Area CSS
         transform: rotateY(90deg) rotateZ(360deg);
     }
 }
+#video-preview-container {
+    width: 300px; 
+    height: 200px;
+    overflow: hidden;
+}
+
+#video-preview {
+    width: 100%;
+    height: auto;
+}

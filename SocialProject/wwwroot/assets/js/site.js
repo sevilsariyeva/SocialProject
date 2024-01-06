@@ -34,7 +34,6 @@ document.getElementById('photo-input').addEventListener('change', function (e) {
             reader.readAsDataURL(file);
         });
     }
-    // Reset the file input after reading files
     this.value = '';
 });
 
@@ -47,11 +46,14 @@ document.getElementById('video-input').addEventListener('change', function (e) {
             const videoPreview = document.createElement('video');
             videoPreview.src = URL.createObjectURL(file);
             videoPreview.controls = true;
+            videoPreview.classList.add('video-preview'); // Add a class for styling
             videoPreviewContainer.appendChild(videoPreview);
         });
     }
     this.value = '';
 });
+
+
 function submitForm(action) {
     document.getElementById('uploadForm').setAttribute('action', action);
     document.getElementById('uploadForm').submit();
