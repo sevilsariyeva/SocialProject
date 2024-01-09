@@ -88,6 +88,17 @@ namespace SocialProject.WebUI.Controllers
             };
             return View("Setting");
         }
+        public async Task<IActionResult> Followers()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.User = new
+            {
+                ImageUrl = user.ImageUrl,
+                Username = user.UserName,
+                Email = user.Email
+            };
+            return View("Followers");
+        }
         public async Task<IActionResult> Privacy()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -99,6 +110,30 @@ namespace SocialProject.WebUI.Controllers
             };
             return View("Privacy");
         }
+        public async Task<IActionResult> Suggestion()
+        {
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            var usersExceptCurrentUser = await _userManager.Users
+                .Where(u => u.Id != currentUser.Id) 
+                .ToListAsync();
+
+            ViewBag.User = new
+            {
+                ImageUrl = currentUser.ImageUrl,
+                Username = currentUser.UserName,
+                Email = currentUser.Email
+            };
+
+            ViewBag.Users = usersExceptCurrentUser.Select(user => new
+            {
+                ImageUrl = user.ImageUrl,
+                Username = user.UserName,
+                Email = user.Email,
+            });
+
+            return View("Suggestion");
+        }
+
         public async Task<IActionResult> HelpAndSupport()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
