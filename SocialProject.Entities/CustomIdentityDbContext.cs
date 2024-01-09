@@ -10,6 +10,10 @@ namespace SocialProject.Entities
 {
     public class CustomIdentityDbContext : IdentityDbContext<CustomIdentityUser, CustomIdentityRole, string>
     {
+        public CustomIdentityDbContext()
+        {
+        }
+
         public CustomIdentityDbContext(DbContextOptions<CustomIdentityDbContext> options)
            : base(options)
         {
@@ -18,6 +22,7 @@ namespace SocialProject.Entities
 
         public DbSet<Post>? Posts { get; set; }
         public DbSet<Friend>? Friends { get; set; }
+        public DbSet<FriendRequest>? FriendRequests { get; set; }
         // Other DbSet properties...
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

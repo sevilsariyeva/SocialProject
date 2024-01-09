@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SocialProject.Entities;
 
 namespace SocialProject.WebUI.Controllers
@@ -36,6 +37,45 @@ namespace SocialProject.WebUI.Controllers
                 Email = user.Email
             };
             return View("Friends");
+        }
+        public async Task<IActionResult> FriendRequests()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            var friendRequests = _context.FriendRequests?
+                .Where(fr => fr.ReceiverId == user.Id && fr.Status == "Pending")
+                .Include(fr => fr.Sender)
+                .ToList();
+
+            ViewBag.User = new
+            {
+                ImageUrl = user.ImageUrl,
+                Username = user.UserName,
+                Email = user.Email
+            };
+            ViewBag.FriendRequests = friendRequests?.Select(fr => new
+            {
+                SenderName = fr.Sender?.UserName,
+                SenderEmail = fr.Sender?.Email,
+                SenderImage=fr.Sender?.ImageUrl
+            });
+
+            return RedirectToAction("Friends", "Profile"); 
+        }
+        public async Task<IActionResult> SendFriendRequest(string receiverId)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var friendRequest = new FriendRequest
+            {
+                SenderId = user.Id,
+                ReceiverId = receiverId,
+                Status = "Pending" 
+            };
+
+            _context.FriendRequests?.Add(friendRequest);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Friends", "Profile");
         }
         public async Task<IActionResult> Setting()
         {

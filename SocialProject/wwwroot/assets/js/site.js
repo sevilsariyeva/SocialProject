@@ -11,7 +11,7 @@
 
 function handlePhotoUpload() {
     const input = document.getElementById('photo-input');
-    input.value = ''; // Reset the input to clear the previously selected files
+    input.value = ''; 
     input.click();
 }
 function handleVideoUpload() {
@@ -46,7 +46,7 @@ document.getElementById('video-input').addEventListener('change', function (e) {
             const videoPreview = document.createElement('video');
             videoPreview.src = URL.createObjectURL(file);
             videoPreview.controls = true;
-            videoPreview.classList.add('video-preview'); // Add a class for styling
+            videoPreview.classList.add('video-preview'); 
             videoPreviewContainer.appendChild(videoPreview);
         });
     }
@@ -74,3 +74,6 @@ document.getElementById('uploadForm').addEventListener('submit', function (e) {
         console.error('Error:', error);
     });
 });
+
+
+
