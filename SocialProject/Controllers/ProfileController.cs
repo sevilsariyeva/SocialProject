@@ -62,20 +62,25 @@ namespace SocialProject.WebUI.Controllers
 
             return RedirectToAction("Friends", "Profile"); 
         }
-        public async Task<IActionResult> SendFriendRequest(string receiverId)
+        public async Task<IActionResult> SendFriendRequest(string id)
         {
-            var user = await _userManager.GetUserAsync(HttpContext.User);
-            var friendRequest = new FriendRequest
+            var sender = await _userManager.GetUserAsync(HttpContext.User);
+            var receiverUser = _userManager.Users.FirstOrDefault(u => u.Id == id);
+            if (receiverUser != null)
             {
-                SenderId = user.Id,
-                ReceiverId = receiverId,
-                Status = "Pending" 
-            };
-
-            _context.FriendRequests?.Add(friendRequest);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction("Friends", "Profile");
+                _context.FriendRequests?.Add(new FriendRequest
+                {
+                    //Content = $"{sender.UserName} send friend request at {DateTime.Now.ToLongDateString()}",
+                    SenderId = sender.Id,
+                    Sender = sender,
+                    ReceiverId = id,
+                    Status = "Pending"
+                });
+                await _context.SaveChangesAsync();
+                await _userManager.UpdateAsync(receiverUser);
+                return Ok();
+            }
+            return BadRequest();
         }
         public async Task<IActionResult> Setting()
         {
@@ -126,6 +131,7 @@ namespace SocialProject.WebUI.Controllers
 
             ViewBag.Users = usersExceptCurrentUser.Select(user => new
             {
+                Id=user.Id,
                 ImageUrl = user.ImageUrl,
                 Username = user.UserName,
                 Email = user.Email,

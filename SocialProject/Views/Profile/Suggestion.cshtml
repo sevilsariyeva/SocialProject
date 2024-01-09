@@ -43,7 +43,7 @@
                         <div class="friends-content">
                             <div class="friends-info d-flex justify-content-between align-items-center">
                                 <a href="#">
-                                    <img src="@user.ImageUrl" alt="image">
+                                        <img src="~/assets/images/user/@user.ImageUrl" alt="image">
                                 </a>
                                 <div class="text ms-3">
                                     <h3><a href="#">@user.Username</a></h3>
@@ -72,7 +72,7 @@
                             </ul>
                             <div class="button-group d-flex justify-content-between align-items-center">
                                 <div class="add-friend-btn">
-                                    <button type="submit">Add Friend</button>
+                                        <button id="friendRequestButton" type="submit"  onclick="sendFriendRequest('@user.Id')">Add Friend</button>
                                 </div>
                                 <div class="send-message-btn">
                                     <button type="submit">Send Message</button>
