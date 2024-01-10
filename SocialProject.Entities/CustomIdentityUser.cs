@@ -17,15 +17,13 @@ namespace SocialProject.Entities
         public string ConnectTime { get; set; } = "";
 
         public List<Post>? Posts { get; set; }
-        public List<Friend>? Friends { get; set; }
-        public List<FriendRequest>? FriendRequests { get; set; }
+        public List<Friend>? Friends { get; set; }= new List<Friend>();
+        public List<FriendRequest> FriendRequests { get; set; } = new List<FriendRequest>();
         //public virtual ICollection<Friend>? Friends { get; set; }
         //public virtual ICollection<FriendRequest>? FriendRequests { get; set; }
         //public virtual ICollection<Chat>? Chats { get; set; }
         public CustomIdentityUser()
         {
-            Friends = new List<Friend>();
-            FriendRequests = new List<FriendRequest>();
             //Chats = new List<Chat>();
         }
     }

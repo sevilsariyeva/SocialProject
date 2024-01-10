@@ -81,7 +81,9 @@ $(document).on('click', '.friendRequestButton', function () {
     sendFriendRequest(receiverId);
 });
 
-function sendFriendRequest(receiverId) {
+function sendFriendRequest(receiverId, event) {
+    const buttonElement = event.target;
+    
     fetch(`/Profile/SendFriendRequest?id=${receiverId}`, {
         method: 'POST',
         headers: {
@@ -91,39 +93,22 @@ function sendFriendRequest(receiverId) {
         .then(response => {
             if (response.ok) {
                 console.log('Friend request sent successfully');
+                buttonElement.textContent = 'Pending';
+                buttonElement.disabled = true; 
             } else {
                 console.error('Failed to send friend request');
+                buttonElement.textContent = 'Add Friend';
+                buttonElement.disabled = false;
             }
         })
         .catch(error => {
             console.error('Error:', error);
+            buttonElement.textContent = 'Add Friend';
+            buttonElement.disabled = false;
         });
 }
 
 
-function checkFriendRequestStatus() {
-    const buttons = document.querySelectorAll('#friendRequestButton');
 
-    buttons.forEach(button => {
-        const userId = button.dataset.userId; 
-
-        fetch(`/Profile/FriendRequestsStatus?userId=${userId}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.isPending) {
-                    button.innerText = 'Pending';
-                    button.disabled = true;
-                } else {
-                    button.innerText = 'Add Friend';
-                    button.disabled = false;
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    });
-}
-
-checkFriendRequestStatus();
 
 

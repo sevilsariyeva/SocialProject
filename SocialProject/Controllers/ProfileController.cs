@@ -57,10 +57,10 @@ namespace SocialProject.WebUI.Controllers
             {
                 SenderName = fr.Sender?.UserName,
                 SenderEmail = fr.Sender?.Email,
-                SenderImage=fr.Sender?.ImageUrl
+                SenderImage = fr.Sender?.ImageUrl
             });
 
-            return RedirectToAction("Friends", "Profile"); 
+            return RedirectToAction("Friends", "Profile");
         }
         public async Task<IActionResult> SendFriendRequest(string id)
         {
@@ -68,7 +68,7 @@ namespace SocialProject.WebUI.Controllers
             var receiverUser = _userManager.Users.FirstOrDefault(u => u.Id == id);
             if (receiverUser != null)
             {
-                _context.FriendRequests?.Add(new FriendRequest
+                _context.FriendRequests.Add(new FriendRequest
                 {
                     //Content = $"{sender.UserName} send friend request at {DateTime.Now.ToLongDateString()}",
                     SenderId = sender.Id,
@@ -82,6 +82,8 @@ namespace SocialProject.WebUI.Controllers
             }
             return BadRequest();
         }
+
+
         public async Task<IActionResult> Setting()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -118,9 +120,6 @@ namespace SocialProject.WebUI.Controllers
         public async Task<IActionResult> Suggestion()
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            var usersExceptCurrentUser = await _userManager.Users
-                .Where(u => u.Id != currentUser.Id) 
-                .ToListAsync();
 
             ViewBag.User = new
             {
@@ -129,16 +128,45 @@ namespace SocialProject.WebUI.Controllers
                 Email = currentUser.Email
             };
 
-            ViewBag.Users = usersExceptCurrentUser.Select(user => new
+            var users = await _context.Users
+                .Where(u => u.Id != currentUser.Id)
+                .ToListAsync();
+
+            var myrequests = _context.FriendRequests.Where(r => r.SenderId == currentUser.Id);
+            var status = "";
+            var isDisabled = false;
+            ViewBag.Users = new List<object>(); // Initialize ViewBag.Users as a new list
+
+            foreach (var item in users)
             {
-                Id=user.Id,
-                ImageUrl = user.ImageUrl,
-                Username = user.UserName,
-                Email = user.Email,
-            });
+                var request = myrequests.FirstOrDefault(r => r.ReceiverId == item.Id && r.Status == "Pending");
+                if (request != null)
+                {
+                    item.HasRequestPending = true;
+                    status = "Pending";
+                    isDisabled = true;
+                }
+                else
+                {
+                    status = "Add Friend";
+                }
+
+                ViewBag.Users.Add(new
+                {
+                    Id = item.Id,
+                    ImageUrl = item.ImageUrl,
+                    Username = item.UserName,
+                    Email = item.Email,
+                    Status = status,
+                    IsButtonDisabled= isDisabled
+                });
+            }
 
             return View("Suggestion");
         }
+
+
+
 
         public async Task<IActionResult> HelpAndSupport()
         {
