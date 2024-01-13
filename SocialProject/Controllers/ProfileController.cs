@@ -76,13 +76,55 @@ namespace SocialProject.WebUI.Controllers
                     ReceiverId = id,
                     Status = "Pending"
                 });
+                receiverUser.HasRequestPending = true;
                 await _context.SaveChangesAsync();
                 await _userManager.UpdateAsync(receiverUser);
                 return Ok();
             }
             return BadRequest();
         }
+        public async Task<IActionResult> AcceptRequest(string userId, string senderId, int requestId)
+        {
+            var receiverUser = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            var sender = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == senderId);
 
+            if (receiverUser != null)
+            {
+                receiverUser.FriendRequests.Add(new FriendRequest
+                {
+                   // Content = $"{sender?.UserName} accepted friend request at ${DateTime.Now.ToLongDateString()}",
+                    SenderId = sender?.Id,
+                    Sender = sender,
+                    ReceiverId = receiverUser.Id,
+                    Status = "Notification"
+                });
+
+                var receiverFriend = new Friend
+                {
+                    OwnId = receiverUser.Id,
+                    YourFriendId = sender?.Id,
+                };
+
+                var senderFriend = new Friend
+                {
+                    OwnId = sender?.Id,
+                    YourFriendId = receiverUser.Id,
+                };
+
+                _context.Friends?.Add(senderFriend);
+                _context.Friends.Add(receiverFriend);
+
+                var request = await _context.FriendRequests.FirstOrDefaultAsync(r => r.Id == requestId);
+                _context.FriendRequests.Remove(request);
+
+                await _userManager.UpdateAsync(receiverUser);
+                await _userManager.UpdateAsync(sender);
+
+
+                await _context.SaveChangesAsync();
+            }
+            return Ok();
+        }
 
         public async Task<IActionResult> Setting()
         {
@@ -120,7 +162,9 @@ namespace SocialProject.WebUI.Controllers
         public async Task<IActionResult> Suggestion()
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-
+            var users = await _context.Users
+                .Where(u => u.Id != currentUser.Id)
+                .ToListAsync();
             ViewBag.User = new
             {
                 ImageUrl = currentUser.ImageUrl,
@@ -128,18 +172,15 @@ namespace SocialProject.WebUI.Controllers
                 Email = currentUser.Email
             };
 
-            var users = await _context.Users
-                .Where(u => u.Id != currentUser.Id)
-                .ToListAsync();
-
-            var myrequests = _context.FriendRequests.Where(r => r.SenderId == currentUser.Id);
+            var myrequests = _context.FriendRequests.Where(r => r.ReceiverId == currentUser.Id);
             var status = "";
             var isDisabled = false;
-            ViewBag.Users = new List<object>(); // Initialize ViewBag.Users as a new list
+            ViewBag.Users = new List<object>();
 
             foreach (var item in users)
             {
-                var request = myrequests.FirstOrDefault(r => r.ReceiverId == item.Id && r.Status == "Pending");
+                var request = myrequests.FirstOrDefault(r => r.SenderId == item.Id && r.Status == "Pending");
+                bool isPending = request?.ReceiverId == currentUser.Id ? true : false;
                 if (request != null)
                 {
                     item.HasRequestPending = true;
@@ -158,15 +199,13 @@ namespace SocialProject.WebUI.Controllers
                     Username = item.UserName,
                     Email = item.Email,
                     Status = status,
-                    IsButtonDisabled= isDisabled
+                    IsButtonDisabled= isDisabled,
+                    IsPending= isPending
                 });
             }
 
             return View("Suggestion");
         }
-
-
-
 
         public async Task<IActionResult> HelpAndSupport()
         {
