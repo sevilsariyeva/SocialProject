@@ -137,6 +137,21 @@ namespace SocialProject.WebUI.Controllers
             }
             return BadRequest();
         }
+        public async Task<IActionResult> UnFollow(string id)
+        {
+            try
+            {
+                var current = await _userManager.GetUserAsync(HttpContext.User);
+                var friendItems = _context.Friends?.Where(f => f.OwnId == id && f.YourFriendId == current.Id || f.YourFriendId == id && f.OwnId == current.Id);
+                _context.Friends?.RemoveRange(friendItems);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Friends","Profile");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         public async Task<IActionResult> Setting()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);

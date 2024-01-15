@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using SocialProject.Entities;
@@ -94,7 +96,6 @@ namespace SocialProject.WebUI.Controllers
             if (!ModelState.IsValid)
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
-                // Log or debug the 'errors' to see validation issues
             }
             if (ModelState.IsValid)
             {
@@ -114,6 +115,16 @@ namespace SocialProject.WebUI.Controllers
                 ModelState.AddModelError("", "Invalid Login");
             }
             return View(model);
+        }
+
+        public async Task<IActionResult> LogOut()
+        {
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            currentUser.IsOnline = false;
+            _context.Users.Update(currentUser);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Login", "Account");
         }
 
         public IActionResult ForgotPassword()
