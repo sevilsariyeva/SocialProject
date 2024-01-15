@@ -5,9 +5,9 @@
                 <h3>Live Chat</h3>
             </div>
 
-            <div class="live-chat-slides owl-carousel owl-theme">
+            <div>
                 @foreach(var user in ViewBag.Users){
-                <div class="chat-box">
+                <div class="chat-box" data-user-id="@user.Id">
                     <div class="image">
                         <a href="#"><img src="~/assets/images/user/@user.ImageUrl" class="rounded-circle" alt="image"></a>
                         <span class="status-online"></span>
