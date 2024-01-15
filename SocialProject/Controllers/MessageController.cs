@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SocialProject.Entities;
 
 namespace SocialProject.WebUI.Controllers
@@ -27,13 +28,27 @@ namespace SocialProject.WebUI.Controllers
         }
         public async Task<IActionResult> LiveChat()
         {
-            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            var users = await _context.Users
+                .Where(u => u.Id != currentUser.Id && u.IsOnline)
+                .ToListAsync();
             ViewBag.User = new
             {
-                ImageUrl = user.ImageUrl,
-                Username = user.UserName,
-                Email = user.Email
+                ImageUrl = currentUser.ImageUrl,
+                Username = currentUser.UserName,
+                Email = currentUser.Email
             };
+            ViewBag.Users = new List<object>();
+            foreach (var item in users)
+            {
+                ViewBag.Users.Add(new
+                {
+                    Id = item.Id,
+                    ImageUrl = item.ImageUrl,
+                    Username = item.UserName,
+                    Email = item.Email
+                });
+            }
             return View("LiveChat");
         }
     }

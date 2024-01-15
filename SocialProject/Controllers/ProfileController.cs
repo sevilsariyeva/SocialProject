@@ -126,16 +126,32 @@ namespace SocialProject.WebUI.Controllers
             return RedirectToAction("Friends", "Profile");
         }
 
-        public async Task<IActionResult> DeleteRequest(int requestId)
+        public async Task<IActionResult> DeleteRequest(int id, string senderId)
         {
-            var item = await _context.FriendRequests.FirstOrDefaultAsync(r => r.Id == requestId);
-            if (item != null)
+            try
             {
-                _context.FriendRequests.Remove(item);
+                var current = await _userManager.GetUserAsync(HttpContext.User);
+                var request = await _context.FriendRequests.FirstOrDefaultAsync(f => f.Id == id);
+                var sender = await _context.Users.FirstOrDefaultAsync(u => u.Id == senderId);
+
+                _context.FriendRequests.Add(new FriendRequest
+                {
+                    //Content = $"${current.UserName} declined your friend request at {DateTime.Now.ToLongTimeString()}",
+                    SenderId = current.Id,
+                    Sender = current,
+                    ReceiverId = sender?.Id,
+                    Status = "Notification"
+                });
+
+
+                _context.FriendRequests.Remove(request);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Friends", "Profile");
             }
-            return BadRequest();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         public async Task<IActionResult> UnFollow(string id)
         {
@@ -218,7 +234,7 @@ namespace SocialProject.WebUI.Controllers
 
                 bool isPendingToOther = requestToOther != null;
                 bool isPendingToMe = requestToMe != null;
-                var friendship = _context.Friends.FirstOrDefault(f =>
+                var friendship = _context.Friends?.FirstOrDefault(f =>
                     (f.OwnId == currentUser.Id && f.YourFriendId == item.Id) ||
                     (f.OwnId == item.Id && f.YourFriendId == currentUser.Id));
 

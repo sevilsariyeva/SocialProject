@@ -6,87 +6,17 @@
             </div>
 
             <div class="live-chat-slides owl-carousel owl-theme">
+                @foreach(var user in ViewBag.Users){
                 <div class="chat-box">
                     <div class="image">
-                        <a href="#"><img src="~/assets/images/user/user-11.jpg" class="rounded-circle" alt="image"></a>
+                        <a href="#"><img src="~/assets/images/user/@user.ImageUrl" class="rounded-circle" alt="image"></a>
                         <span class="status-online"></span>
                     </div>
                     <h3>
-                        <a href="#">James</a>
+                        <a href="#">@user.Username</a>
                     </h3>
                 </div>
-                <div class="chat-box">
-                    <div class="image">
-                        <a href="#"><img src="~/assets/images/user/user-59.jpg" class="rounded-circle" alt="image"></a>
-                        <span class="status-online"></span>
-                    </div>
-                    <h3>
-                        <a href="#">Debra</a>
-                    </h3>
-                </div>
-                <div class="chat-box">
-                    <div class="image">
-                        <a href="#"><img src="~/assets/images/user/user-60.jpg" class="rounded-circle" alt="image"></a>
-                        <span class="status-online"></span>
-                    </div>
-                    <h3>
-                        <a href="#">Adelina</a>
-                    </h3>
-                </div>
-                <div class="chat-box">
-                    <div class="image">
-                        <a href="#"><img src="~/assets/images/user/user-23.jpg" class="rounded-circle" alt="image"></a>
-                        <span class="status-online"></span>
-                    </div>
-                    <h3>
-                        <a href="#">Miguel</a>
-                    </h3>
-                </div>
-                <div class="chat-box">
-                    <div class="image">
-                        <a href="#"><img src="~/assets/images/user/user-35.jpg" class="rounded-circle" alt="image"></a>
-                        <span class="status-online"></span>
-                    </div>
-                    <h3>
-                        <a href="#">Xavier</a>
-                    </h3>
-                </div>
-                <div class="chat-box">
-                    <div class="image">
-                        <a href="#"><img src="~/assets/images/user/user-22.jpg" class="rounded-circle" alt="image"></a>
-                        <span class="status-online"></span>
-                    </div>
-                    <h3>
-                        <a href="#">Kimberly</a>
-                    </h3>
-                </div>
-                <div class="chat-box">
-                    <div class="image">
-                        <a href="#"><img src="~/assets/images/user/user-25.jpg" class="rounded-circle" alt="image"></a>
-                        <span class="status-online"></span>
-                    </div>
-                    <h3>
-                        <a href="#">Turner</a>
-                    </h3>
-                </div>
-                <div class="chat-box">
-                    <div class="image">
-                        <a href="#"><img src="~/assets/images/user/user-39.jpg" class="rounded-circle" alt="image"></a>
-                        <span class="status-online"></span>
-                    </div>
-                    <h3>
-                        <a href="#">Ferrier</a>
-                    </h3>
-                </div>
-                <div class="chat-box">
-                    <div class="image">
-                        <a href="#"><img src="~/assets/images/user/user-33.jpg" class="rounded-circle" alt="image"></a>
-                        <span class="status-online"></span>
-                    </div>
-                    <h3>
-                        <a href="#">Reggie</a>
-                    </h3>
-                </div>
+                }
             </div>
 
             <div class="live-chat-body">
