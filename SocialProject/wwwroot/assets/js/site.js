@@ -107,7 +107,27 @@ function sendFriendRequest(receiverId, event) {
             buttonElement.disabled = false;
         });
 }
+function AcceptRequest(id, id2, requestId) {
+    $.ajax({
+        url: `/Profile/AcceptRequest?userId=${id}&senderId=${id2}&requestId=${requestId}`,
+        method: "GET",
+        success: function (data) {
+            let element = document.querySelector("#alert");
+            element.style.display = "block";
+            element.innerHTML = "You accept request successfully";
+            GetAllUsers();
+            SendFollowCall(id);
+            SendFollowCall(id2);
+            GetMyRequests();
+            GetAllUsers();
 
+            setTimeout(() => {
+                element.innerHTML = "";
+                element.style.display = "none";
+            }, 5000);
+        }
+    })
+}
 function GetMessages(receiverId, senderId) {
     $.ajax({
         url: `/Home/GetAllMessages?receiverId=${receiverId}&senderId=${senderId}`,
@@ -146,5 +166,8 @@ margin-left:0px;border-radius:0 20px 20px 0;width:50%;padding:20px;'>
     })
 }
 
-
+function hideButtons() {
+    document.getElementById("acceptButton").style.display = "none";
+    document.getElementById("declineButton").style.display = "none";
+}
 
