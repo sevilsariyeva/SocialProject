@@ -67,7 +67,7 @@ document.getElementById('uploadForm').addEventListener('submit', function (e) {
 });
 
 
-$(document).on('click', '.friendRequestButton', function () {
+(document).on('click', '.friendRequestButton', function () {
     const receiverId = $(this).data('receiverId');
     sendFriendRequest(receiverId);
 });

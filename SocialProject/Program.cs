@@ -19,10 +19,10 @@ builder.Services.AddIdentity<CustomIdentityUser, CustomIdentityRole>()
 
 builder.Services.AddScoped<IPasswordHasher<CustomIdentityUser>, PasswordHasher<CustomIdentityUser>>();
 
-//builder.Services.AddAntiforgery(options =>
-//{
-//    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-//});
+builder.Services.AddAntiforgery(options =>
+{
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+});
 
 builder.Services.AddSignalR();
 var app = builder.Build();

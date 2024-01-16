@@ -80,7 +80,6 @@
                                             <button type="submit" style="background-color: red; color: white;">UnFollow</button>
                                         </form>
                                     }
-                                    
                                     else if (user.IsPending)
                                     {
                                         <form method="post" action="@Url.Action("AcceptRequest", "Profile", new { id = user.Id })">
