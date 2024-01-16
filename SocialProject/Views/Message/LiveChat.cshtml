@@ -7,24 +7,24 @@
 
             <div>
                 @foreach(var user in ViewBag.Users){
-                <div class="chat-box" data-user-id="@user.Id">
+            <div class="chat-box" data-user-id="@user.Id" onclick="openChatForUser('@user.Id', '@user.Username', '@user.ImageUrl')">
                     <div class="image">
-                        <a href="#"><img src="~/assets/images/user/@user.ImageUrl" class="rounded-circle" alt="image"></a>
+                    <a href="#"><img src="~/assets/images/user/@user.ImageUrl" data-image-url="@user.ImageUrl" class="rounded-circle" alt="image"></a>
                         <span class="status-online"></span>
                     </div>
                     <h3>
-                        <a href="#">@user.Username</a>
+                    <a href="#" data-username="@user.Username" onclick="event.preventDefault(); openChatForUser('@user.Id', '@user.Username', '@user.ImageUrl')">@user.Username</a>
                     </h3>
                 </div>
                 }
             </div>
 
-            <div class="live-chat-body">
+            <div class="live-chat-body" style="display: none;">
                 <div class="live-chat-header d-flex justify-content-between align-items-center">
                     <div class="live-chat-info">
-                        <a href="#"><img src="~/assets/images/user/user-11.jpg" class="rounded-circle" alt="image"></a>
+                        <a href="#"><img src="~/assets/images/user/user-11.jpg" class="rounded-circle" id="userImg" alt="image"></a>
                         <h3>
-                            <a href="#">James Vanwin</a>
+                            <a id="userName" href="#">James Vanwin</a>
                         </h3>
                     </div>
 

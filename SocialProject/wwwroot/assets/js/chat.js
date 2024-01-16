@@ -100,18 +100,44 @@ function GetAllUsers() {
 document.querySelectorAll('.chat-box').forEach(item => {
     item.addEventListener('click', event => {
         let userId = event.currentTarget.getAttribute('data-user-id');
-        openChatForUser(userId);
+        let username = event.currentTarget.getAttribute('data-username');
+        let imageUrl = event.currentTarget.getAttribute('data-image-url');
+        openChatForUser(userId, username, imageUrl);
     });
 });
 
-function openChatForUser(userId) {
-    console.log('Chat opened for user ID:', userId);
-    // Example: AJAX call to get chat data (you'll need to implement the server-side)
 
-    fetch(`/path-to-your-chat-api/${userId}`)
-        .then(response => response.json())
-        .then(data => {
-            // Update your chat UI with the fetched data
-        });
+function openChatForUser(userId, username, imageUrl) {
+    if (username != null) {
+    document.querySelector('#userName').textContent = username;
+    var imageElement = document.querySelector('#userImg');
+    imageElement.src = imageUrl.includes('http') ? imageUrl : '/assets/images/user/' + imageUrl;
 
+    document.querySelector('.live-chat-body').style.display = 'block';
+
+    //fetch(`https://localhost:7129/Message/LiveChat/${userId}`)
+    //    .then(response => response.json())
+    //    .then(data => {
+    //        // Assuming 'data' is an array of chat messages
+    //        // Clear existing messages
+    //        var chatContent = document.querySelector('.chat-content');
+    //        chatContent.innerHTML = '';
+
+    //        // Append each message to the chat content
+    //        data.forEach(message => {
+    //            var messageElement = document.createElement('div');
+    //            messageElement.className = 'chat-message';
+    //            messageElement.innerHTML = `
+    //                <p>${message.text}</p>
+    //                <span class="time d-block">${message.time}</span>
+    //            `;
+    //            chatContent.appendChild(messageElement);
+    //        });
+    //    })
+    //    .catch(error => {
+    //        console.error('Error fetching chat history:', error);
+        //    });
+    }
 }
+
+

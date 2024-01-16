@@ -46,7 +46,7 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute("Default", "{controller=Account}/{action=Register}/{id?}");
-    endpoints.MapHub<HUB>("/chathub");
+    endpoints.MapHub<ChatHub>("/chathub");
 });
 
 app.Run();
