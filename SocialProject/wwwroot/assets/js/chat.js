@@ -96,25 +96,30 @@ function GetAllUsers() {
         }
     })
 }
+var linkElement = document.getElementById('sender');
 
+var senderId = linkElement.getAttribute('data-sender');
 document.querySelectorAll('.chat-box').forEach(item => {
     item.addEventListener('click', event => {
         let userId = event.currentTarget.getAttribute('data-user-id');
         let username = event.currentTarget.getAttribute('data-username');
         let imageUrl = event.currentTarget.getAttribute('data-image-url');
         openChatForUser(userId, username, imageUrl);
+        fetchChatHistory(senderId, userId);
     });
 });
 
 
 function openChatForUser(userId, username, imageUrl) {
     if (username != null) {
-    document.querySelector('#userName').textContent = username;
-    var imageElement = document.querySelector('#userImg');
-    imageElement.src = imageUrl.includes('http') ? imageUrl : '/assets/images/user/' + imageUrl;
-
-    document.querySelector('.live-chat-body').style.display = 'block';
-
+        document.querySelector('#userName').textContent = username;
+        var imageElement = document.querySelector('#userImg');
+        imageElement.src = imageUrl.includes('http') ? imageUrl : '/assets/images/user/' + imageUrl;
+        sessionStorage.setItem('selectedUserId', userId);
+        sessionStorage.setItem('selectedUsername', username);
+        sessionStorage.setItem('selectedUserImageUrl', imageUrl);
+        document.querySelector('.live-chat-body').style.display = 'block';
+    }
     //fetch(`https://localhost:7129/Message/LiveChat/${userId}`)
     //    .then(response => response.json())
     //    .then(data => {
@@ -136,8 +141,87 @@ function openChatForUser(userId, username, imageUrl) {
     //    })
     //    .catch(error => {
     //        console.error('Error fetching chat history:', error);
-        //    });
-    }
+    //    });
+
 }
 
+function fetchChatHistory(senderId, receiverId) {
+    // Display loading state, could be a spinner or a loading message
+    var chatContent = document.querySelector('.chat-content');
+    chatContent.innerHTML = '<div class="loading">Loading chat history...</div>';
+
+    fetch(`/Message/GetChatHistory?senderId=${senderId}&receiverId=${receiverId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            chatContent.innerHTML = ''; // Clear loading message or existing content
+            data.forEach(message => {
+                var messageElement = document.createElement('div');
+                var messageClass = message.senderId === senderId ? 'chat-message-sent' : 'chat-message-received';
+                messageElement.className = `chat-message ${messageClass}`;
+
+                var messageText = document.createElement('p');
+                messageText.textContent = message.content; // Securely set text content
+                messageElement.appendChild(messageText);
+
+                var timeSpan = document.createElement('span');
+                timeSpan.className = 'time d-block';
+                timeSpan.textContent = new Date(message.dateTime).toLocaleTimeString();
+                messageElement.appendChild(timeSpan);
+
+                chatContent.appendChild(messageElement);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching chat history:', error);
+            chatContent.innerHTML = '<div class="error">Failed to load chat history.</div>';
+        });
+}
+
+let selectedUserId = sessionStorage.getItem('selectedUserId');
+let selectedUsername = sessionStorage.getItem('selectedUsername');
+let selectedUserImageUrl = sessionStorage.getItem('selectedUserImageUrl');
+
+
+document.getElementById('sendBtn').addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent form from submitting normally
+    var receiverId = sessionStorage.getItem('selectedUserId'); // Assuming this is set when a chat is opened
+    var senderId = document.getElementById('sender').getAttribute('data-sender');
+
+    SendMessage(senderId, receiverId, event);
+});
+
+function SendMessage(senderId, receiverId, event) {
+    let content = document.querySelector("#message-input");
+    let obj = {
+        receiverId: receiverId,
+        senderId: senderId,
+        content: content.value
+    };
+
+    fetch(`/Message/AddMessage`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            GetMessageCall(receiverId, senderId);
+            content.value = "";
+        })
+        .catch(error => {
+            console.error('Error sending message:', error);
+        });
+}
 

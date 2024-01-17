@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,5 +18,6 @@ namespace SocialProject.Entities
         public int ChatId { get; set; }
         public virtual Chat? Chat { get; set; }
         public bool HasSeen { get; set; } = false;
+        
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SocialProject.Entities;
+using SocialProject.WebUI.Models;
 
 namespace SocialProject.WebUI.Controllers
 {
@@ -34,10 +35,12 @@ namespace SocialProject.WebUI.Controllers
                 .ToListAsync();
             ViewBag.User = new
             {
+                Id=currentUser.Id,
                 ImageUrl = currentUser.ImageUrl,
                 Username = currentUser.UserName,
                 Email = currentUser.Email
             };
+           
             ViewBag.Users = new List<object>();
             foreach (var item in users)
             {
@@ -49,7 +52,25 @@ namespace SocialProject.WebUI.Controllers
                     Email = item.Email
                 });
             }
-            return View("LiveChat");
+
+            var currentUserViewModel = new UserViewModel
+            {
+                Id = currentUser.Id,
+                ImageUrl = currentUser.ImageUrl,
+                Username = currentUser.UserName,
+            };
+            var userViewModels = users.Select(user => new UserViewModel
+            {
+                Id = user.Id,
+                ImageUrl = user.ImageUrl,
+                Username = user.UserName,
+            }).ToList();
+            var chatViewModel = new ChatViewModel
+            {
+                CurrentUser = currentUserViewModel,
+                Users = userViewModels
+            };
+            return View("LiveChat",chatViewModel);
         }
         public async Task<IActionResult> GetChatHistory(string senderId, string receiverId)
         {
@@ -68,5 +89,49 @@ namespace SocialProject.WebUI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost(Name = "AddMessage")]
+        public async Task<IActionResult> AddMessage([FromBody]MessageModel model)
+        {
+            try
+            {
+                var chat = await _context.Chats.FirstOrDefaultAsync(c =>
+                    (c.SenderId == model.SenderId && c.ReceiverId == model.ReceiverId)
+                    || (c.SenderId == model.ReceiverId && c.ReceiverId == model.SenderId));
+
+                // If a chat between the two users doesn't exist, create it
+                if (chat == null)
+                {
+                    chat = new Chat
+                    {
+                        SenderId = model.SenderId,
+                        ReceiverId = model.ReceiverId
+                        // Initialize other necessary properties if any
+                    };
+                    await _context.Chats.AddAsync(chat);
+                    await _context.SaveChangesAsync(); // Save the chat to generate an Id
+                }
+
+                var message = new Message
+                {
+                    ChatId = chat.Id,
+                    Content = model.Content,
+                    DateTime = DateTime.Now,
+                    HasSeen = false,
+                    IsImage = false,
+                    ReceiverId = model.ReceiverId,
+                    SenderId = model.SenderId,
+                };
+
+                await _context.Messages.AddAsync(message);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return RedirectToAction("LiveChat");
+        }
+
     }
 }

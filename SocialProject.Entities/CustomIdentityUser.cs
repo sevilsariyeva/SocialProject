@@ -19,11 +19,11 @@ namespace SocialProject.Entities
         public List<Post>? Posts { get; set; }
         public List<Friend>? Friends { get; set; }= new List<Friend>();
         public List<FriendRequest> FriendRequests { get; set; } = new List<FriendRequest>();
-        public List<Chat> Chats { get; set; } = new List<Chat>();
+        //public List<Chat> Chats { get; set; } = new List<Chat>();
         public List<Message> Messages { get; set; } = new List<Message>();
         //public virtual ICollection<Friend>? Friends { get; set; }
         //public virtual ICollection<FriendRequest>? FriendRequests { get; set; }
-        //public virtual ICollection<Chat>? Chats { get; set; }
+        public virtual ICollection<Chat>? Chats { get; set; }
         public CustomIdentityUser()
         {
             //Chats = new List<Chat>();
