@@ -51,5 +51,22 @@ namespace SocialProject.WebUI.Controllers
             }
             return View("LiveChat");
         }
+        public async Task<IActionResult> GetChatHistory(string senderId, string receiverId)
+        {
+            try
+            {
+                var messages = await _context.Messages
+                    .Where(m => (m.SenderId == senderId && m.ReceiverId == receiverId) ||
+                                (m.SenderId == receiverId && m.ReceiverId == senderId))
+                    .OrderBy(m => m.DateTime)
+                    .ToListAsync();
+
+                return Json(messages);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -23,7 +23,8 @@ namespace SocialProject.Entities
         public DbSet<Post>? Posts { get; set; }
         public DbSet<Friend>? Friends { get; set; }
         public DbSet<FriendRequest>? FriendRequests { get; set; }
-        // Other DbSet properties...
+        public DbSet<Chat>? Chats { get; set; }
+        public DbSet<Message>? Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
