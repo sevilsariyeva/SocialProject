@@ -40,11 +40,7 @@ namespace SocialProject.WebUI.Controllers
             };
             return View("MyProfile");
         }
-
-        [ApiController]
-        [Route("[controller]")]
-        public class PostsController : ControllerBase
-        {
+       
             [HttpPost]
             public IActionResult CreatePost([FromBody] PostViewModel postModel)
             {
@@ -56,7 +52,6 @@ namespace SocialProject.WebUI.Controllers
 
                 return Ok(postModel);
             }
-        }
 
         public async Task<List<CustomIdentityUser>> GetAllFriends()
         {
