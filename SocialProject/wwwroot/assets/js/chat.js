@@ -214,6 +214,7 @@ function updateChatBody(messages) {
         // ... (code to create message elements based on your HTML structure)
     });
 }
+
 function SendMessage(senderId, receiverId) {
     let messageContent = document.querySelector("#message-input").value;
     // Construct the message object
@@ -251,3 +252,189 @@ connection.on("ReceiveMessage", function (senderId, message) {
         addMessageToChat({ senderId, content: message });
     }
 });
+function handlePhotoUpload() {
+    const input = document.getElementById('photo-input');
+    input.value = '';
+    input.click();
+}
+function handleVideoUpload() {
+    const input = document.getElementById('video-input');
+    input.value = '';
+    input.click();
+}
+//document.getElementById('photo-input').addEventListener('change', function (e) {
+//    const selectedFiles = Array.from(e.target.files);
+//    const imagePreviewContainer = document.getElementById('image-preview-container');
+
+//    if (selectedFiles && selectedFiles.length > 0) {
+//        selectedFiles.forEach(file => {
+//            const reader = new FileReader();
+//            reader.onload = function (event) {
+//                const imagePreview = document.createElement('img');
+//                imagePreview.src = event.target.result;
+//                imagePreviewContainer.appendChild(imagePreview);
+//            };
+//            reader.readAsDataURL(file);
+//        });
+//    }
+//    this.value = '';
+//});
+
+//document.getElementById('video-input').addEventListener('change', function (e) {
+//    const file = e.target.files[0];
+//    if (!file) {
+//        return;
+//    }
+
+//    const videoPreviewContainer = document.getElementById('video-preview-container');
+//    videoPreviewContainer.innerHTML = '';
+
+//    const videoElement = document.createElement('video');
+//    videoElement.src = URL.createObjectURL(file);
+//    videoElement.controls = true;
+//    videoElement.width = 320;
+//    videoElement.height = 240;
+//    videoPreviewContainer.appendChild(videoElement);
+//});
+document.getElementById('uploadForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    fetch('@Url.Action("Upload", "Home")', {
+        method: 'POST',
+        body: formData
+    }).then(response => {
+        console.log('Upload successful');
+        window.location.href = '@Url.Action("Index", "Home")';
+    }).catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+function submitPost() {
+    const formElement = document.getElementById('uploadForm');
+    const formData = new FormData(formElement);
+
+    fetch('/Home/Upload', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Server response:', data); // Check the structure of 'data'
+
+            // Initialize postData with content
+            const postData = {
+                content: formData.get('message')
+            };
+
+            // Add imageUrls to postData if it exists and is not empty
+            if (data.imageUrls.length > 0) {
+                postData.imageUrls = data.imageUrls;
+            }
+
+            // Add videoUrls to postData if it exists and is not empty
+            if (data.videoUrls && data.videoUrls.length > 0 && data.videoUrls[0].URL) {
+                postData.videoUrls = data.videoUrls;
+            }
+
+            addPostToUI(postData);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+}
+
+function addPostToUI(postData) {
+    var currentUser = document.querySelector('#currentUser').value;
+    const imageUrlMatch = currentUser.match(/ImageUrl\s*=\s*([^,]+)/);
+    let imageUrl = '';
+
+    if (imageUrlMatch && imageUrlMatch[1]) {
+        imageUrl = imageUrlMatch[1].trim();
+    }
+    const usernameMatch = currentUser.match(/Username\s*=\s*([^,]+)/);
+    let username = '';
+    if (usernameMatch && usernameMatch[1]) {
+        username = usernameMatch[1].trim(); // Remove any unwanted characters and get the clean username
+    }
+    const postsContainer = document.querySelector('.news-feed-post');
+    const newPost = document.createElement('div');
+    newPost.className = 'news-feed news-feed-post';
+    newPost.innerHTML = `
+        <div class="post-header d-flex justify-content-between align-items-center">
+            <div class="image">
+                <a href="${postData.profileLink || '#'}"><img src="/assets/images/user/${imageUrl}" class="rounded-circle" alt="image"></a>
+            </div>
+            <div class="info ms-3">
+                <span class="name"><a href="${postData.profileLink || '#'}">${username || 'Anonymous'}</a></span>
+                <span class="small-text"><a href="#">${postData.timeAgo || 'Just now'}</a></span>
+            </div>
+            <div class="dropdown">
+                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flaticon-menu"></i></button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="flaticon-edit"></i> Edit Post</a></li>
+                    <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="flaticon-private"></i> Hide Post</a></li>
+                    <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="flaticon-trash"></i> Delete Post</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="post-body">
+            <p>${postData.content || 'Content not available'}</p>
+            <div class="post-image">
+                <img src="${postData.imageUrls[0].url}" alt="image">
+            </div>
+        </div>
+
+        <div class="post-comment-list">
+        </div>
+
+        <form class="post-footer">
+            <div class="footer-image">
+                <a href="#"><img src="/assets/images/user/${imageUrl}}" class="rounded-circle" alt="image"></a>
+            </div>
+            <div class="form-group">
+                <textarea name="message" class="form-control" placeholder="Write a comment..."></textarea>
+                <label><a href="#"><i class="flaticon-photo-camera"></i></a></label>
+            </div>
+        </form>
+    `;
+
+    // Add the new post to the top of the posts container
+    postsContainer.prepend(newPost);
+}
+
+
+
+document.getElementById('photo-input').addEventListener('change', function (e) {
+    const selectedFiles = Array.from(e.target.files);
+    const imagePreviewContainer = document.getElementById('image-preview-container');
+    imagePreviewContainer.innerHTML = ''; // Clear previous previews
+
+    selectedFiles.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const imagePreview = document.createElement('img');
+            imagePreview.src = event.target.result;
+            imagePreviewContainer.appendChild(imagePreview);
+        };
+        reader.readAsDataURL(file);
+    });
+});
+
+document.getElementById('video-input').addEventListener('change', function (e) {
+    const selectedFiles = Array.from(e.target.files);
+    const videoPreviewContainer = document.getElementById('video-preview-container');
+    videoPreviewContainer.innerHTML = ''; // Clear previous previews
+
+    selectedFiles.forEach(file => {
+        const videoPreview = document.createElement('video');
+        videoPreview.src = URL.createObjectURL(file);
+        videoPreview.controls = true;
+        videoPreviewContainer.appendChild(videoPreview);
+    });
+});
+
+

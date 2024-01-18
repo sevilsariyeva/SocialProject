@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\assets\images\posts\**" />
+    <Content Remove="wwwroot\assets\images\posts\**" />
+    <EmbeddedResource Remove="wwwroot\assets\images\posts\**" />
+    <None Remove="wwwroot\assets\images\posts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Properties\launchSettings.json" />
   </ItemGroup>
 
@@ -86,7 +93,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\assets\images\posts\" />
+    <Folder Include="wwwroot\assets\posts\" />
   </ItemGroup>
 
 </Project>

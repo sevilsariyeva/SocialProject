@@ -12,6 +12,7 @@
                         <a href="@Url.Action("MyProfile", "Profile")"><img src="~/assets/images/user/@ViewBag.User.ImageUrl" alt="image"></a>
                             <div class="text ms-2">
                                 <h3><a href="@Url.Action("MyProfile", "Profile")">@ViewBag.User.Username</a></h3>
+                                <input type="hidden" id="currentUser" value="@ViewBag.User">
                                 <span>Washington</span>
                             </div>
                         </div>
@@ -129,7 +130,7 @@
 
                     <form id="uploadForm" action="Upload" method="post" enctype="multipart/form-data">
                         <div class="form-group">
-                            <textarea id="message" name="message" class="form-control" placeholder="Write something here..."></textarea>
+                            <textarea id="post-content" name="message" class="form-control" placeholder="Write something here..."></textarea>
                         </div>
                         <div id="image-preview-container"></div>
                         <div id="video-preview-container"></div>
