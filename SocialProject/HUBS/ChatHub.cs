@@ -16,6 +16,10 @@ namespace SocialProject.WebUI.HUBS
             _contextAccessor = contextAccessor;
             _context = context;
         }
+        public async Task SendMessage(string receiverId, string senderId, string message)
+        {
+            await Clients.User(receiverId).SendAsync("ReceiveMessage", senderId, message);
+        }
         public async override Task OnConnectedAsync()
         {
 

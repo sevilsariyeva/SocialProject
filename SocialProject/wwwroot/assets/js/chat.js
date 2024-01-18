@@ -30,72 +30,6 @@ connection.on("Disconnect", function (info) {
     //}, 5000);
 })
 
-function GetAllUsers() {
-
-    $.ajax({
-        url: "/Home/GetAllUsers",
-        method: "GET",
-
-        success: function (data) {
-            let content = "";
-            for (var i = 0; i < data.length; i++) {
-                let dateContent = "";
-                let style = '';
-                let subContent = "";
-
-
-                if (data[i].hasRequestPending) {
-                    subContent = `<button  class='btn btn-outline-secondary'  onclick="TakeRequest('${data[i].id}')"> Already Sent</button 
-                    >`;
-                }
-                else {
-                    if (data[i].isFriend) {
-
-                        subContent = `<button  class='btn btn-outline-secondary' onclick="UnFollowCall('${data[i].id}')"> UnFollow</button>`;
-                    }
-                    else {
-
-                        subContent = `<button onclick="SendFollow('${data[i].id}')" class='btn btn-outline-primary'> Follow</button>`;
-                    }
-                }
-
-                if (data[i].isOnline) {
-                    style = 'border:5px solid springgreen;';
-                }
-                else {
-                    style = 'border:5px solid red;';
-                    let disconnectedDate = new Date(data[i].disconnectTime);
-                    let currentDate = new Date();
-                    let diffTime = Math.abs(currentDate - disconnectedDate);
-                    let diffMinutes = Math.ceil(diffTime / (1000 * 60));
-                    if (diffMinutes >= 60) {
-                        diffMinutes = Math.ceil(diffMinutes / 60);
-                        dateContent = `<span class='btn btn-warning' > Left ${diffMinutes} hours ago</span>`;
-                    }
-                    else {
-                        dateContent = `<span class='btn btn-warning' > Left ${diffMinutes} minutes ago</span>`;
-                    }
-
-                }
-
-                let item = `
-                <div class='card' style='${style}width:14rem;margin:5px;'>
-                    <img style='width:100%;height:220px;' src='/images/${data[i].imageUrl}'/>
-                    <div class='card-body'>
-                        <h5 class='card-title'>${data[i].userName}</h5>
-                        <p class='card-text'>${data[i].email}</p>
-                        ${subContent}
-                        <p class='card-text mt-2'>${dateContent}</p>
-                    </div>
-                </div>
-                `;
-                content += item;
-            }
-            $("#allusers").html(content);
-            GetFriends();
-        }
-    })
-}
 var linkElement = document.getElementById('sender');
 
 var senderId = linkElement.getAttribute('data-sender');
@@ -146,7 +80,6 @@ function openChatForUser(userId, username, imageUrl) {
 }
 
 function fetchChatHistory(senderId, receiverId) {
-    // Display loading state, could be a spinner or a loading message
     var chatContent = document.querySelector('.chat-content');
     chatContent.innerHTML = '<div class="loading">Loading chat history...</div>';
 
@@ -158,23 +91,48 @@ function fetchChatHistory(senderId, receiverId) {
             return response.json();
         })
         .then(data => {
-            chatContent.innerHTML = ''; // Clear loading message or existing content
+            chatContent.innerHTML = ''; 
             data.forEach(message => {
-                var messageElement = document.createElement('div');
-                var messageClass = message.senderId === senderId ? 'chat-message-sent' : 'chat-message-received';
-                messageElement.className = `chat-message ${messageClass}`;
+                var chatElement = document.createElement('div');
+                chatElement.className = message.senderId === senderId ? 'chat chat-left' : 'chat';
+
+                var chatAvatarDiv = document.createElement('div');
+                chatAvatarDiv.className = 'chat-avatar';
+                var avatarLink = document.createElement('a');
+                avatarLink.setAttribute('routerLink', '/profile');
+                avatarLink.className = 'd-inline-block';
+                var avatarImg = document.createElement('img');
+                avatarImg.setAttribute('src', '~/assets/images/user/user-1.jpg'); 
+                avatarImg.setAttribute('width', '50');
+                avatarImg.setAttribute('height', '50');
+                avatarImg.className = 'rounded-circle';
+                avatarImg.setAttribute('alt', 'image');
+                avatarLink.appendChild(avatarImg);
+                chatAvatarDiv.appendChild(avatarLink);
+
+                var chatBodyDiv = document.createElement('div');
+                chatBodyDiv.className = 'chat-body';
+
+                var chatMessageDiv = document.createElement('div');
+                chatMessageDiv.className = 'chat-message';
 
                 var messageText = document.createElement('p');
-                messageText.textContent = message.content; // Securely set text content
-                messageElement.appendChild(messageText);
+                messageText.textContent = message.content;
+                chatMessageDiv.appendChild(messageText);
 
                 var timeSpan = document.createElement('span');
                 timeSpan.className = 'time d-block';
                 timeSpan.textContent = new Date(message.dateTime).toLocaleTimeString();
-                messageElement.appendChild(timeSpan);
+                chatMessageDiv.appendChild(timeSpan);
 
-                chatContent.appendChild(messageElement);
+                chatBodyDiv.appendChild(chatMessageDiv);
+
+                chatElement.appendChild(chatAvatarDiv);
+                chatElement.appendChild(chatBodyDiv);
+
+                chatContent.appendChild(chatElement);
             });
+
         })
         .catch(error => {
             console.error('Error fetching chat history:', error);
@@ -188,40 +146,108 @@ let selectedUserImageUrl = sessionStorage.getItem('selectedUserImageUrl');
 
 
 document.getElementById('sendBtn').addEventListener('click', function (event) {
-    event.preventDefault(); // Prevent form from submitting normally
-    var receiverId = sessionStorage.getItem('selectedUserId'); // Assuming this is set when a chat is opened
+    event.preventDefault();
+    var receiverId = sessionStorage.getItem('selectedUserId');
     var senderId = document.getElementById('sender').getAttribute('data-sender');
+    let contentElement = document.querySelector("#message-input");
+    let messageContent = contentElement.value.trim();
 
-    SendMessage(senderId, receiverId, event);
+    if (messageContent) {
+        SendMessage(senderId, receiverId, messageContent);
+        addMessageToChat({ senderId, content: messageContent, dateTime: new Date() });
+        contentElement.value = "";
+    } else {
+        console.error('Error: Message content is empty.');
+    }
 });
 
-function SendMessage(senderId, receiverId, event) {
-    let content = document.querySelector("#message-input");
-    let obj = {
-        receiverId: receiverId,
+
+
+function addMessageToChat(message) {
+    const chatContent = document.querySelector('.chat-content');
+
+    var chatElement = document.createElement('div');
+    chatElement.className = message.senderId === senderId ? 'chat chat-left' : 'chat';
+
+    var chatAvatarDiv = document.createElement('div');
+    chatAvatarDiv.className = 'chat-avatar';
+    var avatarLink = document.createElement('a');
+    avatarLink.setAttribute('routerLink', '/profile');
+    avatarLink.className = 'd-inline-block';
+    var avatarImg = document.createElement('img');
+    avatarImg.setAttribute('src', message.avatarImageUrl || '/assets/images/user/user-11.jpg');
+    avatarImg.setAttribute('width', '50');
+    avatarImg.setAttribute('height', '50');
+    avatarImg.className = 'rounded-circle';
+    avatarImg.setAttribute('alt', 'image');
+    avatarLink.appendChild(avatarImg);
+    chatAvatarDiv.appendChild(avatarLink);
+
+    var chatBodyDiv = document.createElement('div');
+    chatBodyDiv.className = 'chat-body';
+    var chatMessageDiv = document.createElement('div');
+    chatMessageDiv.className = 'chat-message';
+    var messageText = document.createElement('p');
+    messageText.textContent = message.content;
+    chatMessageDiv.appendChild(messageText);
+
+    // Create the timestamp element for the message
+    var timeSpan = document.createElement('span');
+    timeSpan.className = 'time d-block';
+    timeSpan.textContent = new Date(message.dateTime).toLocaleTimeString();
+    chatMessageDiv.appendChild(timeSpan);
+
+    // Append the message and avatar containers to the chat body
+    chatBodyDiv.appendChild(chatMessageDiv);
+    chatElement.appendChild(chatAvatarDiv);
+    chatElement.appendChild(chatBodyDiv);
+
+    // Append the chat element to the chat content container
+    chatContent.appendChild(chatElement);
+}
+
+function updateChatBody(messages) {
+    const chatContent = document.querySelector('.chat-content');
+    chatContent.innerHTML = ''; // Clear current content
+    messages.forEach(message => {
+        // Create and append new message elements to chatContent
+        // ... (code to create message elements based on your HTML structure)
+    });
+}
+function SendMessage(senderId, receiverId) {
+    let messageContent = document.querySelector("#message-input").value;
+    // Construct the message object
+    let messageData = {
         senderId: senderId,
-        content: content.value
+        receiverId: receiverId,
+        content: messageContent
     };
 
-    fetch(`/Message/AddMessage`, {
-        method: "POST",
+    // Send the message data to the server
+    fetch('/Message/AddMessage', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(obj)
+        body: JSON.stringify(messageData)
     })
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            return response.json();
+            return response.json(); // Or `response.text()` if the server does not send a JSON response.
         })
         .then(data => {
-            GetMessageCall(receiverId, senderId);
-            content.value = "";
+            console.log('Message sent successfully:', data);
         })
         .catch(error => {
             console.error('Error sending message:', error);
         });
 }
 
+connection.on("ReceiveMessage", function (senderId, message) {
+    if (senderId === sessionStorage.getItem('selectedUserId')) {
+        // Append the received message to the chat
+        addMessageToChat({ senderId, content: message });
+    }
+});

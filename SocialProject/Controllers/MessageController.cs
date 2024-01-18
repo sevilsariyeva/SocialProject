@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using SocialProject.Entities;
+using SocialProject.WebUI.HUBS;
 using SocialProject.WebUI.Models;
 
 namespace SocialProject.WebUI.Controllers
@@ -10,6 +12,7 @@ namespace SocialProject.WebUI.Controllers
     {
         private UserManager<CustomIdentityUser> _userManager;
         private CustomIdentityDbContext _context;
+        private ChatHub _hubContext;
 
         public MessageController(UserManager<CustomIdentityUser> userManager, CustomIdentityDbContext context)
         {
@@ -90,26 +93,29 @@ namespace SocialProject.WebUI.Controllers
             }
         }
 
-        [HttpPost(Name = "AddMessage")]
-        public async Task<IActionResult> AddMessage([FromBody]MessageModel model)
+        [HttpPost]
+        [Route("Message/AddMessage")]
+        public async Task<IActionResult> AddMessage([FromBody] MessageModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             try
             {
                 var chat = await _context.Chats.FirstOrDefaultAsync(c =>
                     (c.SenderId == model.SenderId && c.ReceiverId == model.ReceiverId)
                     || (c.SenderId == model.ReceiverId && c.ReceiverId == model.SenderId));
 
-                // If a chat between the two users doesn't exist, create it
                 if (chat == null)
                 {
                     chat = new Chat
                     {
                         SenderId = model.SenderId,
                         ReceiverId = model.ReceiverId
-                        // Initialize other necessary properties if any
                     };
                     await _context.Chats.AddAsync(chat);
-                    await _context.SaveChangesAsync(); // Save the chat to generate an Id
+                    await _context.SaveChangesAsync(); // Save immediately to generate chat.Id
                 }
 
                 var message = new Message
@@ -125,13 +131,25 @@ namespace SocialProject.WebUI.Controllers
 
                 await _context.Messages.AddAsync(message);
                 await _context.SaveChangesAsync();
+
+                // Send the message to the receiver via SignalR
+                await _hubContext.Clients.User(model.ReceiverId).SendAsync("ReceiveMessage", model.SenderId, model.Content);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            return RedirectToAction("LiveChat");
+
+            return Ok();
         }
 
+        private async Task<List<Message>> GetChatHistoryInternal(string senderId, string receiverId)
+        {
+            return await _context.Messages
+                .Where(m => (m.SenderId == senderId && m.ReceiverId == receiverId) ||
+                            (m.SenderId == receiverId && m.ReceiverId == senderId))
+                .OrderBy(m => m.DateTime)
+                .ToListAsync();
+        }
     }
 }
