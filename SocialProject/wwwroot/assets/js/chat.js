@@ -54,28 +54,6 @@ function openChatForUser(userId, username, imageUrl) {
         sessionStorage.setItem('selectedUserImageUrl', imageUrl);
         document.querySelector('.live-chat-body').style.display = 'block';
     }
-    //fetch(`https://localhost:7129/Message/LiveChat/${userId}`)
-    //    .then(response => response.json())
-    //    .then(data => {
-    //        // Assuming 'data' is an array of chat messages
-    //        // Clear existing messages
-    //        var chatContent = document.querySelector('.chat-content');
-    //        chatContent.innerHTML = '';
-
-    //        // Append each message to the chat content
-    //        data.forEach(message => {
-    //            var messageElement = document.createElement('div');
-    //            messageElement.className = 'chat-message';
-    //            messageElement.innerHTML = `
-    //                <p>${message.text}</p>
-    //                <span class="time d-block">${message.time}</span>
-    //            `;
-    //            chatContent.appendChild(messageElement);
-    //        });
-    //    })
-    //    .catch(error => {
-    //        console.error('Error fetching chat history:', error);
-    //    });
 
 }
 
@@ -191,27 +169,23 @@ function addMessageToChat(message) {
     messageText.textContent = message.content;
     chatMessageDiv.appendChild(messageText);
 
-    // Create the timestamp element for the message
     var timeSpan = document.createElement('span');
     timeSpan.className = 'time d-block';
     timeSpan.textContent = new Date(message.dateTime).toLocaleTimeString();
     chatMessageDiv.appendChild(timeSpan);
 
-    // Append the message and avatar containers to the chat body
     chatBodyDiv.appendChild(chatMessageDiv);
     chatElement.appendChild(chatAvatarDiv);
     chatElement.appendChild(chatBodyDiv);
 
-    // Append the chat element to the chat content container
     chatContent.appendChild(chatElement);
 }
 
 function updateChatBody(messages) {
     const chatContent = document.querySelector('.chat-content');
-    chatContent.innerHTML = ''; // Clear current content
+    chatContent.innerHTML = '';
     messages.forEach(message => {
-        // Create and append new message elements to chatContent
-        // ... (code to create message elements based on your HTML structure)
+        
     });
 }
 
@@ -248,7 +222,6 @@ function SendMessage(senderId, receiverId) {
 
 connection.on("ReceiveMessage", function (senderId, message) {
     if (senderId === sessionStorage.getItem('selectedUserId')) {
-        // Append the received message to the chat
         addMessageToChat({ senderId, content: message });
     }
 });
@@ -262,40 +235,7 @@ function handleVideoUpload() {
     input.value = '';
     input.click();
 }
-//document.getElementById('photo-input').addEventListener('change', function (e) {
-//    const selectedFiles = Array.from(e.target.files);
-//    const imagePreviewContainer = document.getElementById('image-preview-container');
 
-//    if (selectedFiles && selectedFiles.length > 0) {
-//        selectedFiles.forEach(file => {
-//            const reader = new FileReader();
-//            reader.onload = function (event) {
-//                const imagePreview = document.createElement('img');
-//                imagePreview.src = event.target.result;
-//                imagePreviewContainer.appendChild(imagePreview);
-//            };
-//            reader.readAsDataURL(file);
-//        });
-//    }
-//    this.value = '';
-//});
-
-//document.getElementById('video-input').addEventListener('change', function (e) {
-//    const file = e.target.files[0];
-//    if (!file) {
-//        return;
-//    }
-
-//    const videoPreviewContainer = document.getElementById('video-preview-container');
-//    videoPreviewContainer.innerHTML = '';
-
-//    const videoElement = document.createElement('video');
-//    videoElement.src = URL.createObjectURL(file);
-//    videoElement.controls = true;
-//    videoElement.width = 320;
-//    videoElement.height = 240;
-//    videoPreviewContainer.appendChild(videoElement);
-//});
 document.getElementById('uploadForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -392,9 +332,7 @@ function addPostToUI(postData) {
         </div>
 
         <form class="post-footer">
-            <div class="footer-image">
-                <a href="#"><img src="/assets/images/user/${imageUrl}}" class="rounded-circle" alt="image"></a>
-            </div>
+          
             <div class="form-group">
                 <textarea name="message" class="form-control" placeholder="Write a comment..."></textarea>
                 <label><a href="#"><i class="flaticon-photo-camera"></i></a></label>
@@ -405,7 +343,6 @@ function addPostToUI(postData) {
     // Add the new post to the top of the posts container
     postsContainer.prepend(newPost);
 }
-
 
 
 document.getElementById('photo-input').addEventListener('change', function (e) {
@@ -437,4 +374,60 @@ document.getElementById('video-input').addEventListener('change', function (e) {
     });
 });
 
+(document).on('click', '.friendRequestButton', function () {
+    const receiverId = $(this).data('receiverId');
+    sendFriendRequest(receiverId);
+});
 
+function sendFriendRequest(receiverId, event) {
+    const buttonElement = event.target;
+
+    fetch(`/Profile/SendFriendRequest?id=${receiverId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log('Friend request sent successfully');
+                buttonElement.textContent = 'Pending';
+                buttonElement.disabled = true;
+            } else {
+                console.error('Failed to send friend request');
+                buttonElement.textContent = 'Add Friend';
+                buttonElement.disabled = false;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            buttonElement.textContent = 'Add Friend';
+            buttonElement.disabled = false;
+        });
+}
+function AcceptRequest(id, id2, requestId) {
+    $.ajax({
+        url: `/Profile/AcceptRequest?userId=${id}&senderId=${id2}&requestId=${requestId}`,
+        method: "GET",
+        success: function (data) {
+            let element = document.querySelector("#alert");
+            element.style.display = "block";
+            element.innerHTML = "You accept request successfully";
+            GetAllUsers();
+            SendFollowCall(id);
+            SendFollowCall(id2);
+            GetMyRequests();
+            GetAllUsers();
+
+            setTimeout(() => {
+                element.innerHTML = "";
+                element.style.display = "none";
+            }, 5000);
+        }
+    })
+}
+
+function hideButtons() {
+    document.getElementById("acceptButton").style.display = "none";
+    document.getElementById("declineButton").style.display = "none";
+}

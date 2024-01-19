@@ -16,7 +16,7 @@ namespace SocialProject.Entities
         public DateTime DisconnectTime { get; set; } = DateTime.Now;
         public string ConnectTime { get; set; } = "";
 
-        public List<Post>? Posts { get; set; }
+        public List<Post>? Posts { get; set; } = new List<Post>();
         public List<Friend>? Friends { get; set; }= new List<Friend>();
         public List<FriendRequest> FriendRequests { get; set; } = new List<FriendRequest>();
         //public List<Chat> Chats { get; set; } = new List<Chat>();

@@ -46,6 +46,7 @@ namespace SocialProject.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload(List<IFormFile> files)
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
             var imageUrls = new List<Image>();
             var videoUrls = new List<Video>();
 
@@ -85,7 +86,7 @@ namespace SocialProject.WebUI.Controllers
                 PostDate = DateTime.UtcNow
                 // Populate other fields as needed
             };
-
+            user.Posts.Add(newPost);
             _context.Posts.Add(newPost);
             await _context.SaveChangesAsync();
 

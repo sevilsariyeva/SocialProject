@@ -115,7 +115,7 @@ namespace SocialProject.WebUI.Controllers
                         ReceiverId = model.ReceiverId
                     };
                     await _context.Chats.AddAsync(chat);
-                    await _context.SaveChangesAsync(); // Save immediately to generate chat.Id
+                    await _context.SaveChangesAsync();
                 }
 
                 var message = new Message
